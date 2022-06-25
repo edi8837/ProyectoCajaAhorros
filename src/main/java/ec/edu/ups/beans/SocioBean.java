@@ -10,6 +10,8 @@ import ec.edu.ups.poyectoingenieriasoftware.modelo.Socio;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,6 +41,8 @@ public class SocioBean implements Serializable {
     private String telefono;
      private String lugarDeTrabajo;
     private Date fechaN;
+    private Socio socio;
+    private String cedula1;
 
     @PostConstruct//Esto es una notacion de EJB que nos dice que
     public void init() {//este metodo init se va a ejecutar despues 
@@ -113,6 +117,14 @@ public class SocioBean implements Serializable {
         this.id = id;
     }
 
+    public String getCedula1() {
+        return cedula1;
+    }
+
+    public void setCedula1(String cedula1) {
+        this.cedula1 = cedula1;
+    }
+
     
 
     public String getNombre() {
@@ -163,6 +175,19 @@ public class SocioBean implements Serializable {
         this.fechaN = fechaN;
     }
 
+    public SocioBean() {
+    }
+
+    public Socio getSocio() {
+        return socio;
+    }
+
+    public void setSocio(Socio socio) {
+        this.socio = socio;
+    }
+    
+    
+
     public void limpiar() {
         this.apellido = "";
         this.nombre = "";
@@ -176,6 +201,25 @@ public class SocioBean implements Serializable {
     
     
     public  void buscarSocio(){
+        
+     
+        System.out.println(cedula);
+      
+         socio = socioFacade.buscarClientePorCedula(cedula);
+        
+        try {
+            if (socio != null) {
+                System.out.println("Entra en buscar ");
+               
+
+            } else {
+                System.out.println("NO EXISTE 1");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "EL Socio no Existee"));
+                System.out.println("NO EXISTE 2");
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Socio  no existe"));
+        }
         
         
     }

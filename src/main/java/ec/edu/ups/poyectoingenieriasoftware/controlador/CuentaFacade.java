@@ -4,6 +4,7 @@
  */
 package ec.edu.ups.poyectoingenieriasoftware.controlador;
 
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Cuenta;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Socio;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -29,46 +30,46 @@ import java.util.List;
  * @author edwin
  */
 @Stateless
-public class SocioFacade extends AbstractFacade<Socio> {
+public class CuentaFacade extends AbstractFacade<Cuenta> {
     @PersistenceContext(name = "SistemaIN")
     private EntityManager em;
 
-    public SocioFacade() {
-        super(Socio.class);
+    public CuentaFacade() {
+        super(Cuenta.class);
     }
     
     public List<Integer> getSocioIds() {
-        String jpql1 = "SELECT s.id FROM Socio s";
+        String jpql1 = "SELECT s.id FROM Cuenta s";
         List<Integer> res = em.createQuery(jpql1).getResultList();
         return res;
     }
     
     
-    public Socio getSocioById(int id){
-        String jpql = "SELECT c FROM Socio c WHERE c.id =" + id;
-        Socio socio = (Socio) em.createQuery(jpql).getSingleResult();
-        return socio;
+    public Cuenta getSocioById(int id){
+        String jpql = "SELECT c FROM Cuenta c WHERE c.id =" + id;
+        Cuenta cuenta = (Cuenta) em.createQuery(jpql).getSingleResult();
+        return cuenta;
     }
-      public Socio buscarClientePorCedula(String cedula) {
+      public Cuenta buscarClientePorCedula(String cedula) {
         //return em.find(Producto.class, id);
-        return em.createQuery("select c from Socio c  where c.cedula=:cedula", Socio.class)
+        return em.createQuery("select c from Cuenta c  where c.cedula=:cedula", Cuenta.class)
                 .setParameter("cedula", cedula)
                 .getSingleResult();
     }
     
     
-     public List<Socio>  getClientesByLevel(int level){
+     public List<Cuenta>  getClientesByLevel(int level){
             Query query = em.createNamedQuery("getByLevel");
             query.setParameter("level", level);
-            List<Socio> cli = query.getResultList();
+            List<Cuenta> cli = query.getResultList();
             return cli;
         }
      
      
-     public List<Socio> consuntaDos(String nombre, int id){
+     public List<Cuenta> consuntaDos(String nombre, int id){
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
-        CriteriaQuery<Socio> cq= cb.createQuery(Socio.class);
-        Root root = cq.from(Socio.class);
+        CriteriaQuery<Cuenta> cq= cb.createQuery(Cuenta.class);
+        Root root = cq.from(Cuenta.class);
         cq.select(root);
         Predicate p1=cb.like(root.get("nombre").as(String.class),"Miguel");
         Predicate p2=cb.greaterThanOrEqualTo(root.get("id").as(Integer.class), id);
