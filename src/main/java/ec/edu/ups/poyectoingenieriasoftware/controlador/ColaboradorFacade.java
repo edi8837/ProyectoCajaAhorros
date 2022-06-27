@@ -80,4 +80,24 @@ public class ColaboradorFacade extends AbstractFacade<Colaborador> {
     
     
     
+    public Colaborador iniciarSesion(Colaborador u) {
+        Colaborador usuario = null;
+        String consulta;
+        try {
+            consulta = "SELECT u FROM Colaborador u WHERE u.usuario = ?1 and u.contracenia= ?2";
+            Query query;
+            query = em.createQuery(consulta);
+            query.setParameter(1, u.getUsuario());
+            query.setParameter(2, u.getContracenia());
+            List<Colaborador> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return usuario;
+    }
+    
+    
 }
