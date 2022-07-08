@@ -14,15 +14,23 @@ import jakarta.persistence.PersistenceContext;
  * @author ASUS_GAMING
  */
 @Stateless
-public class AhorroFacade extends AbstractFacade<Ahorro>{
+public class AhorroFacade extends AbstractFacade<Ahorro> {
+
     @PersistenceContext(name = "SistemaIN")
     private EntityManager em;
 
     public AhorroFacade() {
         super(Ahorro.class);
     }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public void guardar(Ahorro ahorro) {
+
+        em.merge(ahorro);
+
     }
 }

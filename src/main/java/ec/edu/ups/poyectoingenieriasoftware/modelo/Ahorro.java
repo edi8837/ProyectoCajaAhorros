@@ -29,9 +29,9 @@ public class Ahorro  implements Serializable{
     private char tipoAhorro;
     private Date fecha;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = true )
     private Cuenta cuenta;
-    @ManyToOne
+     @ManyToOne
     @JoinColumn(nullable = true )
     private Persona persona;
     

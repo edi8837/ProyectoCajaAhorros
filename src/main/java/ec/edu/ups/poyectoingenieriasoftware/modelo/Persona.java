@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -41,7 +42,7 @@ public class Persona implements Serializable {
     private String direccion;
     private Date fechaN;
     private String telefono;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+     @OneToMany(fetch = FetchType.LAZY, mappedBy = "persona", cascade = CascadeType.ALL)
     private List<Ahorro> ahorro;
     @Transient
     private boolean editable;
@@ -49,11 +50,15 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
-    public Persona(String cedula, String nombre, String apellido) {
+    public Persona(int id, String cedula, String nombre, String apellido, List<Ahorro> ahorro) {
+        this.id = id;
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.ahorro = ahorro;
     }
+
+    
     
     public Persona(int id, String cedula, String nombre, String apellido, String correo, String direccion, Date fechaN, String telefono) {
         this.id = id;
@@ -141,6 +146,14 @@ public class Persona implements Serializable {
 
     public void setFechaN(Date fechaN) {
         this.fechaN = fechaN;
+    }
+
+    public List<Ahorro> getAhorro() {
+        return ahorro;
+    }
+
+    public void setAhorro(List<Ahorro> ahorro) {
+        this.ahorro = ahorro;
     }
     
     

@@ -27,6 +27,7 @@ import java.util.List;
 @Named
 @SessionScoped
 public class AhorroBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EJB
     private CuentaFacade cuentaFacade;
@@ -60,13 +61,7 @@ public class AhorroBean implements Serializable {
         return null;
     }
 
-    public void Limpiar() {
-        this.valor = 0.00;
-        this.fecha = null;
-        this.cuenta = null;
-        this.persona = null;
-    }
-
+  
     public String edit(Ahorro a) {
         ahorroFacade.edit(a);
         list = ahorroFacade.findAll();
@@ -208,7 +203,7 @@ public class AhorroBean implements Serializable {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    
+
     public String cuentaBusqueda() {
         mensaje = "";
         System.out.println(numero);
@@ -230,16 +225,16 @@ public class AhorroBean implements Serializable {
         ahorro.setTipoAhorro('D');
         ahorro.setFecha(new Date());
         ahorro.setCuenta(cuenta);
-        persona = new Persona();
-        persona.setCedula(cedula);
-        persona.setNombre(nombre);
-        persona.setApellido(apellido);
-        ahorro.setPersona(persona);
+        Persona persona1 = new Persona();
+        persona1.setCedula(cedula);
+        persona1.setNombre(nombre);
+        persona1.setApellido(apellido);
+        ahorro.setPersona(persona1);
         System.out.println(ahorro);
         System.out.println("¿¿¿¿¿¿¿¿¿¿¿¿");
-//        ahorroFacade.create(ahorro);
-        //list = ahorroFacade.findAll();
-        Limpiar();
+        ahorroFacade.guardar(ahorro);
+        list = ahorroFacade.findAll();
+        
         return "Ahorro.xhtml?faces-redirect=true";
     }
 }
