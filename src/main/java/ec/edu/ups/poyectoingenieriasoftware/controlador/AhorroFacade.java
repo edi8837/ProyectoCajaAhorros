@@ -29,8 +29,6 @@ public class AhorroFacade extends AbstractFacade<Ahorro> {
     }
 
     public void guardar(Ahorro ahorro) {
-
         em.merge(ahorro);
-
     }
 }

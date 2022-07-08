@@ -28,7 +28,6 @@ import java.util.List;
 public class CuentaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @EJB
     private SocioFacade socioFacade;
     @EJB
@@ -43,6 +42,7 @@ public class CuentaBean implements Serializable {
     private Cuenta cuenta;
     private Socio socio;
     private boolean Estado;
+    private double monto;
 
     @PostConstruct//Esto es una notacion de EJB que nos dice que
     public void init() {//este metodo init se va a ejecutar despues 
@@ -57,6 +57,7 @@ public class CuentaBean implements Serializable {
         cuenta.setEstado(Estado);
         cuenta.setTipoDeCuenta(tipoDeCuenta);
         cuenta.setSocio(socio);
+        cuenta.setMonto(monto);
         cuentaFacade.create(cuenta);
         list = cuentaFacade.findAll();
         limpiar();
@@ -73,8 +74,7 @@ public class CuentaBean implements Serializable {
          fechaApertura=null;
          tipoDeCuenta="";
          socio=null;
-         
-         
+         monto =0.00;
      }
      
     public String edit(Cuenta c) {
@@ -178,6 +178,14 @@ public class CuentaBean implements Serializable {
         this.Estado = Estado;
     }
 
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+    
     public void buscarSocio() {
 
         System.out.println(cedula);

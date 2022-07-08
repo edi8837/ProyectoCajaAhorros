@@ -48,6 +48,7 @@ public class AhorroBean implements Serializable {
     private String nombre;
     private String apellido;
     private int numeroCuenta;
+    private String nombreCuenta;
 
     @PostConstruct//Esto es una notacion de EJB que nos dice que
     public void init() {//este metodo init se va a ejecutar despues 
@@ -61,7 +62,6 @@ public class AhorroBean implements Serializable {
         return null;
     }
 
-  
     public String edit(Ahorro a) {
         ahorroFacade.edit(a);
         list = ahorroFacade.findAll();
@@ -213,6 +213,7 @@ public class AhorroBean implements Serializable {
                 System.out.println("Cuenta Encontrada");
                 mensaje = "Cuenta Encontrada";
                 numeroCuenta = cuenta.getNumero();
+                nombreCuenta = cuenta.getSocio().getNombre();
                 this.cuenta = cuenta;
             }
         }
@@ -234,9 +235,11 @@ public class AhorroBean implements Serializable {
         System.out.println("¿¿¿¿¿¿¿¿¿¿¿¿");
         ahorroFacade.guardar(ahorro);
         list = ahorroFacade.findAll();
+        aumentarMonto();
         Limpiar();
         return "Ahorro.xhtml?faces-redirect=true";
     }
+
     public String addR() {
         ahorro = new Ahorro();
         ahorro.setValor(valor);
@@ -245,14 +248,39 @@ public class AhorroBean implements Serializable {
         ahorro.setCuenta(cuenta);
         ahorroFacade.guardar(ahorro);
         list = ahorroFacade.findAll();
+        reducirMonto();
         Limpiar();
-        return "Ahorro.xhtml?faces-redirect=true";
+        return "Retiro.xhtml?faces-redirect=true";
     }
 
-    public  void Limpiar(){
-        this.valor=0.00;
-        this.nombre="";
-        this.apellido="";
-        this.cedula="";
+    public void aumentarMonto() {
+        double aumentar = 0.00;
+        aumentar = cuenta.getMonto() + valor;
+        cuenta.setMonto(aumentar);
+        System.out.println(aumentar);
+        cuentaFacade.edit(cuenta);
+    }
+
+    public void reducirMonto() {
+        double reducir = 0.00;
+//        for (Cuenta cuenta : listaCuenta) {
+        if (this.cuenta.getMonto() >= valor) {
+            System.out.println(cuenta.getMonto() + "Hola");
+            reducir = cuenta.getMonto() - valor;
+            System.out.println(reducir);
+            cuenta.setMonto(reducir);
+            cuentaFacade.edit(cuenta);
+        } else {
+            System.out.println("NO EXISTE 1");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No puede retirar"));
+        }
+//        }
+    }
+
+    public void Limpiar() {
+        this.valor = 0.00;
+        this.nombre = "";
+        this.apellido = "";
+        this.cedula = "";
     }
 }

@@ -40,6 +40,7 @@ public class Cuenta implements Serializable {
    private Date fechaApertura;
    private String tipoDeCuenta;
    private boolean Estado;
+   private double monto;
    @ManyToOne
    @JoinColumn
    private Socio socio;
@@ -50,18 +51,15 @@ public class Cuenta implements Serializable {
     public Cuenta() {
     }
 
-    public Cuenta(int id, int numero, Date fechaApertura, String tipoDeCuenta, boolean Estado, Socio socio) {
+    public Cuenta(int id, int numero, Date fechaApertura, String tipoDeCuenta, boolean Estado,double monto, Socio socio) {
         this.id = id;
         this.numero = numero;
         this.fechaApertura = fechaApertura;
+        this.monto = monto;
         this.tipoDeCuenta = tipoDeCuenta;
         this.Estado = Estado;
         this.socio = socio;
     }
-
-    
-
-  
 
     public int getId() {
         return id;
@@ -111,15 +109,19 @@ public class Cuenta implements Serializable {
         this.socio = socio;
     }
 
-    @Override
-    public String toString() {
-        return "Cuenta{" + "id=" + id + ", numero=" + numero + ", fechaApertura=" + fechaApertura + ", tipoDeCuenta=" + tipoDeCuenta + ", Estado=" + Estado + ", socio=" + socio + '}';
+    public double getMonto() {
+        return monto;
     }
 
-   
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
 
+    @Override
+    public String toString() {
+        return "Cuenta{" + "id=" + id + ", numero=" + numero + ", fechaApertura=" + fechaApertura + ", tipoDeCuenta=" + tipoDeCuenta + ", Estado=" + Estado + ", monto=" + monto + ", socio=" + socio + ", ahoroo=" + ahoroo + '}';
+    }
    
-    
 
 
     

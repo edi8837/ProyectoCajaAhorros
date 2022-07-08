@@ -126,7 +126,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 <f:selectItem itemLabel="Credito" itemValue="Credito"/>
                             </p:selectOneMenu>
                         </div>
-
+                        <p:outputLabel for="txtMonto"  value="Monto:"/>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
+                            <p:inputText id="txtMonto"  placeholder="Monto:" value="#{cuentaBean.monto}" required="true" />
+                        </div>
 
                         <div class="col">
                             <p:commandButton  style="margin-right: 20px"     value="Guardar" styleClass="ui-button-raised"  action="#{cuentaBean.add}" oncomplete="frmExclos.Clear()"  />   

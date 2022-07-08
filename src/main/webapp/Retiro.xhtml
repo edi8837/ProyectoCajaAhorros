@@ -42,10 +42,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:menuitem value="Retiro" icon="pi pi-fw pi-trash"  url="Retiro.xhtml"/>
                         <p:divider />
                     </p:submenu> 
-
                     <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
                     <p:divider layout="vertical"/>
-
                 </p:menubar>
                 <h:form id="frmExclos" style="margin:20px;border-style: solid;border-width: 1" >
                     <p:panel id="form" style="width: auto;margin: 0 auto; ">
@@ -57,9 +55,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:commandButton action="#{ahorroBean.cuentaBusqueda}" value="Buscar" update=":frmExclos">
                         </p:commandButton>
                         <div >
-                            <b><label for="txtNumero">Numero de Cuenta: </label></b>
+                            <b><label for="txtNumero">Nombre de Cuenta: </label></b>
                             <h:outputText class="input-group-text" id="numeroC"
-                                          value="#{ahorroBean.cuenta.numero}" />
+                                          value="#{ahorroBean.cuenta.socio.nombre}" />
                         </div>
                     </p:panel>
                 </h:form>
@@ -73,8 +71,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 <div class="ui-inputgroup">
                                     <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
                                     <p:inputText id="txtValor"  placeholder="Valor:" value="#{ahorroBean.valor}" required="true" />
-                                </div>
-                                
+                                </div> 
                             </div>
                         </div>
                         <div class="container" style=" margin-bottom: 15px" >

@@ -11,14 +11,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
        xmlns:p="http://primefaces.org/ui"
        template="/WEB-INF/template.xhtml">
     <h:head>
-        <title>Lista de Socios</title>
+        <title>Lista de Cuentas</title>
     </h:head> 
    
     <h:body>
         <div class="card">
             <h:form>
                 <p:growl id="messages"/>
-
                 <p:menubar >
                     <p:submenu label="Cliente" icon="pi pi-user">
                         <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
@@ -137,10 +136,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                  <h:inputText value="#{a.lugarTrabajo }" />
                             </f:facet> 
                         </p:cellEditor>
-                       
                     </p:column>
-
-
                     <p:column headerText="Eliminar">
                         <p:commandButton value="Eliminar" action="#{socioBean.delete(a)}" update="products" styleClass="ui-button-raised ui-button-danger"/>
                     </p:column>
@@ -151,5 +147,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </h:form>
         </div>
     </h:body>
-   
 </html>

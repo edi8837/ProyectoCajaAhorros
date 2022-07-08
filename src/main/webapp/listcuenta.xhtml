@@ -13,7 +13,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Lista de Cuentas</title>
     </h:head> 
-   
     <h:body>
         <div class="card">
             <h:form>
@@ -26,23 +25,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
                         <p:divider />
                     </p:submenu>
-                    
+
                     <p:submenu label="Cuenta" icon="pi pi-user">
                         <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
                         <p:divider />
-                         <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listcuenta.xhtml"/>
+
+
+                        <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listcuenta.xhtml"/>
                         <p:divider />
                     </p:submenu> 
-                    
+                    <p:submenu label="Ahorro" icon="pi pi-user">
+                        <p:menuitem  value="Deposito" icon="pi pi-fw pi-plus"  url="Ahorro.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Retiro" icon="pi pi-fw pi-trash"  url="Retiro.xhtml"/>
+                        <p:divider />
+                    </p:submenu> 
                     <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
                     <p:divider layout="vertical"/>
-                    
                 </p:menubar>
 
             </h:form>
-          </div>
+        </div>
         <div class="card">
-             <h:form id="frmExclos">
+            <h:form id="frmExclos">
                 <p:growl  id="mensajeGeneral3" sticky="false" showDetail="true"/>   
                 <p:dataTable id="products" var="a" value="#{cuentaBean.list}" editable="true" styleClass="tabla">
 
@@ -63,17 +68,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </p:column>
 
                     <p:column headerText="numero">
-                        <f:facet name="header">Cedula</f:facet> #{a.numero}
+                        <f:facet name="header">Numero</f:facet> #{a.numero}
                     </p:column>
-                     private int id;
-   
+                    private int id;
+
                     <p:column headerText="tipoDeCuenta">
-                         <p:cellEditor> 
+                        <p:cellEditor> 
                             <f:facet name="output">
-                               <h:outputText value="#{a.tipoDeCuenta}" />
+                                <h:outputText value="#{a.tipoDeCuenta}" />
                             </f:facet>
                             <f:facet name="input">
-                                 <h:inputText value="#{a.tipoDeCuenta}" />
+                                <h:inputText value="#{a.tipoDeCuenta}" />
                             </f:facet> 
                         </p:cellEditor>
                     </p:column>
@@ -81,38 +86,30 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:column headerText="Estado">
                         <p:cellEditor> 
                             <f:facet name="output">
-                               <h:outputText value="#{a.estado}" />
+                                <h:outputText value="#{a.estado}" />
                             </f:facet>
                             <f:facet name="input">
-                                 <h:inputText value="#{a.estado}" />
+                                <h:inputText value="#{a.estado}" />
                             </f:facet> 
                         </p:cellEditor>
-                      
+
                     </p:column>
 
                     <p:column headerText="nombre socio">
                         <p:cellEditor> 
                             <f:facet name="output">
-                               <h:outputText value="#{a.socio.nombre}" />
+                                <h:outputText value="#{a.socio.nombre}" />
                             </f:facet>
                             <f:facet name="input">
-                                 <h:inputText value="#{a.socio.nombre}" />
+                                <h:inputText value="#{a.socio.nombre}" />
                             </f:facet> 
                         </p:cellEditor>
                     </p:column>
-
-                    
-                  
-
                     <p:column headerText="Fecha de apertura">
                         <h:outputText   value="#{a.fechaApertura}">
                             <f:convertDateTime pattern="dd-MM-yyyy" />
                         </h:outputText>
                     </p:column>
-                    
-                     
-                    
-
                     <p:column headerText="Eliminar">
                         <p:commandButton value="Eliminar" action="#{cuentaBean.delete(a)}" update="products" styleClass="ui-button-raised ui-button-danger"/>
                     </p:column>
@@ -123,5 +120,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </h:form>
         </div>
     </h:body>
-   
+
 </html>

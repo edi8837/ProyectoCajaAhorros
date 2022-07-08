@@ -57,9 +57,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:commandButton action="#{ahorroBean.cuentaBusqueda}" value="Buscar" update=":frmExclos">
                         </p:commandButton>
                         <div >
-                            <b><label for="txtNumero">Numero de Cuenta: </label></b>
+                            <b><label for="txtNumero">Nombre de Cuenta: </label></b>
                             <h:outputText class="input-group-text" id="numeroC"
-                                          value="#{ahorroBean.cuenta.numero}" />
+                                          value="#{ahorroBean.cuenta.socio.nombre}" />
                         </div>
                     </p:panel>
                 </h:form>
