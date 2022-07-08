@@ -4,6 +4,7 @@
  */
 package ec.edu.ups.poyectoingenieriasoftware.modelo;
 
+import jakarta.persistence.CascadeType;
 import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,8 +14,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -38,13 +41,20 @@ public class Persona implements Serializable {
     private String direccion;
     private Date fechaN;
     private String telefono;
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private List<Ahorro> ahorro;
     @Transient
     private boolean editable;
 
     public Persona() {
     }
 
+    public Persona(String cedula, String nombre, String apellido) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+    
     public Persona(int id, String cedula, String nombre, String apellido, String correo, String direccion, Date fechaN, String telefono) {
         this.id = id;
         this.cedula = cedula;

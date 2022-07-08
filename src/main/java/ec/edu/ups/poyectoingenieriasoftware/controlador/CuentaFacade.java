@@ -56,7 +56,12 @@ public class CuentaFacade extends AbstractFacade<Cuenta> {
                 .setParameter("cedula", cedula)
                 .getSingleResult();
     }
-    
+    public Cuenta buscarCuentaPorNumero(String numero) {
+        //return em.find(Producto.class, id);
+        return em.createQuery("select c from Cuenta c  where c.numero=:numero", Cuenta.class)
+                .setParameter("numero", numero)
+                .getSingleResult();
+    }
     
      public List<Cuenta>  getClientesByLevel(int level){
             Query query = em.createNamedQuery("getByLevel");
