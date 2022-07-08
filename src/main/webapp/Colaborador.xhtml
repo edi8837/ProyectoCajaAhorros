@@ -90,6 +90,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 font-weight: bold;
             }
         </style>
+       <div class="card">
+            <h:form>
+                <p:growl id="messages"/>
+
+                <p:menubar >
+                    <p:submenu label="Cliente" icon="pi pi-user">
+                        <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
+                        <p:divider />
+                    </p:submenu>
+                    
+                    <p:submenu label="Cuenta" icon="pi pi-user">
+                        <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
+                        <p:divider />
+                       
+                         <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listcuenta.xhtml"/>
+                        <p:divider />
+                    </p:submenu> 
+                    
+                    <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
+                    <p:divider layout="vertical"/>
+                    
+                </p:menubar>
+
+            </h:form>
+          </div>
         <div class="container">
             <div class="row">
                 <div class="col">

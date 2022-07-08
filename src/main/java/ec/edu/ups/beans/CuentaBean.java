@@ -17,7 +17,6 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -31,36 +30,37 @@ public class CuentaBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EJB
-    private CuentaFacade cuentaFacade;//mando mi fachada
+    private SocioFacade socioFacade;
+    @EJB
+    private CuentaFacade cuentaFacade;
+//mando mi fachada
     private List<Cuenta> list = new ArrayList<>();// lista de Clientes , se usa el List por el findAll()
     private int id;
+    private String cedula;
     private int numero;
     private Date fechaApertura;
     private String tipoDeCuenta;
+    private Cuenta cuenta;
+    private Socio socio;
     private boolean Estado;
-    private Socio Socio;
 
     @PostConstruct//Esto es una notacion de EJB que nos dice que
     public void init() {//este metodo init se va a ejecutar despues 
         list = cuentaFacade.findAll();//de que se ha creado o visualizado el JSF o el bean
     }                                  // esto se lo hace ya que puede que no se haya renderizado toda la vista y ya quiera llamar a buscar la info//lo cual puede arrojar un error  
 
-    public void generarDatos(){
-     numero=(int)Math.random()*1000;
-    fechaApertura=new Date();
-    
-    }
     public String add() {
 
-
-    cuentaFacade.create (
-            
-    new Cuenta(id, numero, fechaApertura, tipoDeCuenta, Estado, Socio));
-        list  = cuentaFacade.findAll();
-
-    //this.limpiar();
-
-return null;
+        cuenta = new Cuenta();
+        cuenta.setNumero(numero);
+        cuenta.setFechaApertura(fechaApertura);
+        cuenta.setEstado(Estado);
+        cuenta.setTipoDeCuenta(tipoDeCuenta);
+        cuenta.setSocio(socio);
+        cuentaFacade.create(cuenta);
+        list = cuentaFacade.findAll();
+        limpiar();
+        return "buscarSocio.xhtml?faces-redirect=true";
     }
 
     public String delete(Cuenta c) {
@@ -68,22 +68,135 @@ return null;
         list = cuentaFacade.findAll();
         return null;
     }
-
+     public void limpiar(){
+         numero=0;
+         fechaApertura=null;
+         tipoDeCuenta="";
+         socio=null;
+         
+         
+     }
+     
     public String edit(Cuenta c) {
         cuentaFacade.edit(c);
+        list = cuentaFacade.findAll();
         return null;
     }
 
-    public String save(Cuenta c) {
-        cuentaFacade.edit(c);
+    public String save(Socio c) {
+        socioFacade.edit(c);
         list = cuentaFacade.findAll(); //actualizo la lista
-        //c.setEditable(false); //desabilita la caja
+        c.setEditable(false); //desabilita la caja
         return null;
     }
 
-    public Cuenta[] getList() { //este metodo tambien se lo modifica
-        return list.toArray(new Cuenta[0]);// Lo que necesita el JSF dentro del table es un
-        //arreglo no una lista por lo que convierto de lista a arreglo
-    }                                         //un arreglo de clientes 
+    public SocioFacade getSocioFacade() {
+        return socioFacade;
+    }
 
+    public void setSocioFacade(SocioFacade socioFacade) {
+        this.socioFacade = socioFacade;
+    }
+
+    public CuentaFacade getCuentaFacade() {
+        return cuentaFacade;
+    }
+
+    public void setCuentaFacade(CuentaFacade cuentaFacade) {
+        this.cuentaFacade = cuentaFacade;
+    }
+
+    public List<Cuenta> getList() {
+        return list;
+    }
+
+    public void setList(List<Cuenta> list) {
+        this.list = list;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public Date getFechaApertura() {
+        return fechaApertura;
+    }
+
+    public void setFechaApertura(Date fechaApertura) {
+        this.fechaApertura = fechaApertura;
+    }
+
+    public String getTipoDeCuenta() {
+        return tipoDeCuenta;
+    }
+
+    public void setTipoDeCuenta(String tipoDeCuenta) {
+        this.tipoDeCuenta = tipoDeCuenta;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    public Socio getSocio() {
+        return socio;
+    }
+
+    public void setSocio(Socio socio) {
+        this.socio = socio;
+    }
+
+    public boolean isEstado() {
+        return Estado;
+    }
+
+    public void setEstado(boolean Estado) {
+        this.Estado = Estado;
+    }
+
+    public void buscarSocio() {
+
+        System.out.println(cedula);
+
+        socio = socioFacade.buscarClientePorCedula(cedula);
+
+        try {
+            if (socio != null) {
+                numero = (int) (1000000 + Math.random() * 90000);
+                fechaApertura = new Date();
+                Estado = true;
+            } else {
+                System.out.println("NO EXISTE 1");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "EL Socio no Existee"));
+                System.out.println("NO EXISTE 2");
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Socio  no existe"));
+        }
+
+    }
 }

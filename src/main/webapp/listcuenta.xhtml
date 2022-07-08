@@ -11,7 +11,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
        xmlns:p="http://primefaces.org/ui"
        template="/WEB-INF/template.xhtml">
     <h:head>
-        <title>Lista de Socios</title>
+        <title>Lista de Cuentas</title>
     </h:head> 
    
     <h:body>
@@ -30,7 +30,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:submenu label="Cuenta" icon="pi pi-user">
                         <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
                         <p:divider />
-                       
                          <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listcuenta.xhtml"/>
                         <p:divider />
                     </p:submenu> 
@@ -43,11 +42,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </h:form>
           </div>
         <div class="card">
-            <h:form id="frmExclos">
+             <h:form id="frmExclos">
                 <p:growl  id="mensajeGeneral3" sticky="false" showDetail="true"/>   
-                <p:dataTable id="products" var="a" value="#{socioBean.list}" editable="true" styleClass="tabla">
+                <p:dataTable id="products" var="a" value="#{cuentaBean.list}" editable="true" styleClass="tabla">
 
-                    <p:ajax listener="#{socioBean.edit(a)}"  event="rowEdit" update=":frmExclos:mensajeGeneral3"/>
+                    <p:ajax listener="#{cuentaBean.edit(a)}"  event="rowEdit" update=":frmExclos:mensajeGeneral3"/>
 
                     <f:facet name="header">
                         <div class="p-d-flex p-jc-between p-ai-center">
@@ -63,86 +62,59 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <f:facet name="header">Id</f:facet>#{a.id}
                     </p:column>
 
-                    <p:column headerText="Cedula">
-                        <f:facet name="header">Cedula</f:facet> #{a.cedula}
+                    <p:column headerText="numero">
+                        <f:facet name="header">Cedula</f:facet> #{a.numero}
                     </p:column>
-                    <p:column headerText="Apellido">
-                        <p:cellEditor> 
-                            <f:facet name="output">
-                                <h:outputText value="#{a.apellido}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <h:inputText value="#{a.apellido}" />
-                            </f:facet> 
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="Nombre">
+                     private int id;
+   
+                    <p:column headerText="tipoDeCuenta">
                          <p:cellEditor> 
                             <f:facet name="output">
-                               <h:outputText value="#{a.nombre}" />
+                               <h:outputText value="#{a.tipoDeCuenta}" />
                             </f:facet>
                             <f:facet name="input">
-                                 <h:inputText value="#{a.nombre}" />
+                                 <h:inputText value="#{a.tipoDeCuenta}" />
                             </f:facet> 
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Telefono">
+                    <p:column headerText="Estado">
                         <p:cellEditor> 
                             <f:facet name="output">
-                               <h:outputText value="#{a.telefono}" />
+                               <h:outputText value="#{a.estado}" />
                             </f:facet>
                             <f:facet name="input">
-                                 <h:inputText value="#{a.telefono}" />
+                                 <h:inputText value="#{a.estado}" />
                             </f:facet> 
                         </p:cellEditor>
                       
                     </p:column>
 
-                    <p:column headerText="Direccion">
+                    <p:column headerText="nombre socio">
                         <p:cellEditor> 
                             <f:facet name="output">
-                               <h:outputText value="#{a.direccion}" />
+                               <h:outputText value="#{a.socio.nombre}" />
                             </f:facet>
                             <f:facet name="input">
-                                 <h:inputText value="#{a.direccion}" />
+                                 <h:inputText value="#{a.socio.nombre}" />
                             </f:facet> 
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Correo">
-                        <p:cellEditor> 
-                            <f:facet name="output">
-                              <h:outputText value="#{a.correo}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                 <h:inputText value="#{a.correo}" />
-                            </f:facet> 
-                        </p:cellEditor>
-                       
-                    </p:column>
+                    
+                  
 
-                    <p:column headerText="Fecha de Nacimiento">
-                        <h:outputText   value="#{a.fechaN}">
+                    <p:column headerText="Fecha de apertura">
+                        <h:outputText   value="#{a.fechaApertura}">
                             <f:convertDateTime pattern="dd-MM-yyyy" />
                         </h:outputText>
                     </p:column>
                     
-                      <p:column headerText="LugarDeTrabajo">
-                        <p:cellEditor> 
-                            <f:facet name="output">
-                              <h:outputText value="#{a.lugarTrabajo}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                 <h:inputText value="#{a.lugarTrabajo }" />
-                            </f:facet> 
-                        </p:cellEditor>
-                       
-                    </p:column>
-
+                     
+                    
 
                     <p:column headerText="Eliminar">
-                        <p:commandButton value="Eliminar" action="#{socioBean.delete(a)}" update="products" styleClass="ui-button-raised ui-button-danger"/>
+                        <p:commandButton value="Eliminar" action="#{cuentaBean.delete(a)}" update="products" styleClass="ui-button-raised ui-button-danger"/>
                     </p:column>
                     <p:column headerText="Editar">
                         <p:rowEditor />
