@@ -234,7 +234,25 @@ public class AhorroBean implements Serializable {
         System.out.println("¿¿¿¿¿¿¿¿¿¿¿¿");
         ahorroFacade.guardar(ahorro);
         list = ahorroFacade.findAll();
-        
+        Limpiar();
         return "Ahorro.xhtml?faces-redirect=true";
+    }
+    public String addR() {
+        ahorro = new Ahorro();
+        ahorro.setValor(valor);
+        ahorro.setTipoAhorro('R');
+        ahorro.setFecha(new Date());
+        ahorro.setCuenta(cuenta);
+        ahorroFacade.guardar(ahorro);
+        list = ahorroFacade.findAll();
+        Limpiar();
+        return "Ahorro.xhtml?faces-redirect=true";
+    }
+
+    public  void Limpiar(){
+        this.valor=0.00;
+        this.nombre="";
+        this.apellido="";
+        this.cedula="";
     }
 }

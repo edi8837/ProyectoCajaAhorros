@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <div class="col">
                 </div>
                 <p:growl id="mensaje" showDetail="true"/>
-                                <p:menubar >
+                <p:menubar >
                     <p:submenu label="Cliente" icon="pi pi-user">
                         <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
                         <p:divider />
@@ -74,22 +74,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                     <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
                                     <p:inputText id="txtValor"  placeholder="Valor:" value="#{ahorroBean.valor}" required="true" />
                                 </div>
-                                <p:outputLabel for="txtCedula"  value="Cedula:"/>
-                                <div class="ui-inputgroup">
-                                    <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
-                                    <p:inputText  id="txtCedula" placeholder="Cedula:" value="#{ahorroBean.cedula}" required="true" />
-                                </div>
-                                <p:outputLabel for="txtNombre"  value="Nombre:"/>
-                                <div class="ui-inputgroup">
-                                    <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
-                                    <p:inputText id="txtNombre" placeholder="Nombre:" value="#{ahorroBean.nombre}" required="true" />
-                                </div>
-
-                                <p:outputLabel for="txtApellido" value="Apellido:"/>
-                                <div class="ui-inputgroup">
-                                    <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
-                                    <p:inputText id="txtApellido" placeholder="Apellido:" value="#{ahorroBean.apellido}" required="true" />
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="container" style=" margin-bottom: 15px" >
@@ -97,7 +82,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 <div class="col">
                                 </div>
                                 <div class="col">
-                                    <p:commandButton  style="margin-right: 20px"   value="Guardar" styleClass="ui-button-raised"  action="#{ahorroBean.add}" />   
+                                    <p:commandButton  style="margin-right: 20px"   value="Guardar" styleClass="ui-button-raised"  action="#{ahorroBean.addR}" />   
                                 </div>
                                 <div class="col">
                                 </div>

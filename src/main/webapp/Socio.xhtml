@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Socios</title>
     </h:head>
-    
+
     <h:body>
         <script type="text/javascript">
             PrimeFaces.locales['es'] = {
@@ -90,7 +90,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 font-weight: bold;
             }
         </style>
-         <div class="card">
+        <div class="card">
             <h:form>
                 <p:growl id="messages"/>
 
@@ -101,22 +101,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
                         <p:divider />
                     </p:submenu>
-                    
+
                     <p:submenu label="Cuenta" icon="pi pi-user">
                         <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
                         <p:divider />
-                        
-                         <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listcuenta.xhtml"/>
+
+
+                        <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listcuenta.xhtml"/>
                         <p:divider />
                     </p:submenu> 
-                    
+                    <p:submenu label="Ahorro" icon="pi pi-user">
+                        <p:menuitem  value="Deposito" icon="pi pi-fw pi-plus"  url="Ahorro.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Retiro" icon="pi pi-fw pi-trash"  url="Retiro.xhtml"/>
+                        <p:divider />
+                    </p:submenu> 
+
                     <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
                     <p:divider layout="vertical"/>
-                    
+
                 </p:menubar>
 
             </h:form>
-          </div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -166,7 +173,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
                                         <p:datePicker id="txtFechaNacimiento" pattern="dd-MM-yyyy" value="#{socioBean.fechaN}" monthNavigator="true" yearNavigator="true" showWeek="true" required="true" />
                                     </div>
-                                    
+
                                     <p:outputLabel for="txtlugarTrabajo" value="LugarDeTrabajo"/>
                                     <div class="ui-inputgroup">
                                         <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
@@ -174,7 +181,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                     </div>
                                 </div>
                             </div>
-                             <div class="container" style=" margin-bottom: 15px" >
+                            <div class="container" style=" margin-bottom: 15px" >
                                 <div class="row">
                                     <div class="col">
                                     </div>
@@ -182,7 +189,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <p:commandButton  style="margin-right: 20px"   update=":mensaje formulario"  value="Guardar" styleClass="ui-button-raised"  action="#{socioBean.add}" />   
 
                                     </div>
-                                   
+
                                     <div class="col">
                                         <p:commandButton value="Cancelar"  styleClass="ui-button-raised ui-button-danger"  type="reset"  update="formulario"/>  
                                     </div>
@@ -198,5 +205,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </div>
         </div>
     </h:body>
-    
+
 </html>

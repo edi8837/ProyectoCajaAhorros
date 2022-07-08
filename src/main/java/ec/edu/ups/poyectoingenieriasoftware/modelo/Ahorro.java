@@ -39,6 +39,14 @@ public class Ahorro  implements Serializable{
     public Ahorro() {
     }
 
+    public Ahorro(int id, double valor, char tipoAhorro, Date fecha, Cuenta cuenta) {
+        this.id = id;
+        this.valor = valor;
+        this.tipoAhorro = tipoAhorro;
+        this.fecha = fecha;
+        this.cuenta = cuenta;
+    }
+    
     public Ahorro(int id, double valor, char tipoAhorro, Date fecha, Cuenta cuenta, Persona persona) {
         this.id = id;
         this.valor = valor;

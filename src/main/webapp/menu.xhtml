@@ -10,7 +10,7 @@
         <title>Menu</title>
         <f:event type="preRenderView" listener="#{permisos.verificarSesion}" />
     </h:head>
-    
+
     <h:body>
 
         <div class="card">
@@ -55,7 +55,6 @@
                         <p:divider />
                         <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
                     </p:submenu>
-
                     <p:divider layout="vertical"/>
                     <p:submenu label="Facturas" icon="pi pi-user">
 
@@ -93,7 +92,7 @@
 
                     <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
                     <p:divider layout="vertical"/>
-                    
+
                 </p:menubar>
 
             </h:form>
