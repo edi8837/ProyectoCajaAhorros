@@ -5,6 +5,7 @@
 package ec.edu.ups.beans;
 
 import ec.edu.ups.poyectoingenieriasoftware.controlador.ColaboradorFacade;
+import ec.edu.ups.poyectoingenieriasoftware.controlador.MenuFacade;
 import ec.edu.ups.poyectoingenieriasoftware.controlador.SocioFacade;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Colaborador;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Socio;
@@ -30,7 +31,10 @@ public class ColaboradorBean implements Serializable {
 
     @EJB
     private ColaboradorFacade colaboradorFacade;//mando mi fachada
+    @EJB
+    private MenuFacade menuFacade;
     private List<Colaborador> list = new ArrayList<>();// lista de Clientes , se usa el List por el findAll()
+    private Colaborador colaborador;
     private int id;
     private String cedula;
     private String nombre;
@@ -98,6 +102,22 @@ public class ColaboradorBean implements Serializable {
         this.colaboradorFacade = colaboradorFacade;
     }
 
+    public MenuFacade getMenuFacade() {
+        return menuFacade;
+    }
+
+    public void setMenuFacade(MenuFacade menuFacade) {
+        this.menuFacade = menuFacade;
+    }
+
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
+
     public String getRol() {
         return rol;
     }
@@ -121,8 +141,6 @@ public class ColaboradorBean implements Serializable {
     public void setContracenia(String contracenia) {
         this.contracenia = contracenia;
     }
-
-    
 
     public int getId() {
         return id;
@@ -179,7 +197,16 @@ public class ColaboradorBean implements Serializable {
     public void setFechaN(Date fechaN) {
         this.fechaN = fechaN;
     }
-    
+
+    public String iniciarSesion() {
+        String redireccion = null;
+        try {
+            menuFacade.iniciarUsuario(colaborador);
+            redireccion = "Socio.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+        }
+        return redireccion;
+    }
 
     public void limpiar() {
         this.apellido = "";
@@ -190,7 +217,7 @@ public class ColaboradorBean implements Serializable {
         this.telefono = "";
         this.cedula = "";
         this.rol = "";
-        this.usuario="";
-        this.contracenia="";
+        this.usuario = "";
+        this.contracenia = "";
     }
 }

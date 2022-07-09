@@ -255,25 +255,25 @@ public class AhorroBean implements Serializable {
 
     public void aumentarMonto() {
         double aumentar = 0.00;
-        aumentar = cuenta.getMonto() + valor;
-        cuenta.setMonto(aumentar);
-        System.out.println(aumentar);
-        cuentaFacade.edit(cuenta);
+            aumentar = cuenta.getMonto() + valor;
+            cuenta.setMonto(aumentar);
+            System.out.println(aumentar);
+            cuentaFacade.edit(cuenta);
     }
 
     public void reducirMonto() {
         double reducir = 0.00;
 //        for (Cuenta cuenta : listaCuenta) {
-        if (this.cuenta.getMonto() >= valor) {
-            System.out.println(cuenta.getMonto() + "Hola");
-            reducir = cuenta.getMonto() - valor;
-            System.out.println(reducir);
-            cuenta.setMonto(reducir);
-            cuentaFacade.edit(cuenta);
-        } else {
-            System.out.println("NO EXISTE 1");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No puede retirar"));
-        }
+            if (this.cuenta.getMonto() >= valor) {
+                System.out.println(cuenta.getMonto()+"Hola");
+                reducir = cuenta.getMonto() - valor;
+                System.out.println(reducir);
+                cuenta.setMonto(reducir);
+                cuentaFacade.edit(cuenta);
+            } else {
+                System.out.println("NO EXISTE 1");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No puede retirar"));
+            }
 //        }
     }
 

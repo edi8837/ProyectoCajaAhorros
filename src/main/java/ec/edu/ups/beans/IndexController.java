@@ -6,6 +6,7 @@ package ec.edu.ups.beans;
 
 
 import ec.edu.ups.poyectoingenieriasoftware.controlador.ColaboradorFacade;
+import ec.edu.ups.poyectoingenieriasoftware.controlador.MenuFacade;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Colaborador;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
@@ -29,6 +30,8 @@ public class IndexController implements Serializable {
 
     @EJB
     private ColaboradorFacade uFacade;
+    @EJB
+    private MenuFacade menuFacade;
     private Colaborador usuario;
 
     @PostConstruct
@@ -46,8 +49,17 @@ public class IndexController implements Serializable {
     }
 
  
-
     public String iniciarSesion() {
+        String redireccion = null;
+        try {
+            menuFacade.iniciarUsuario(usuario);
+            redireccion = "/Ahorro.xhtml";
+        } catch (Exception e) {
+        }
+        return redireccion;
+    }
+
+    public String iniciarSesions() {
         System.out.println("VERIFICANDO INICIARSESION");
         String redireccion = null;
         Colaborador u;

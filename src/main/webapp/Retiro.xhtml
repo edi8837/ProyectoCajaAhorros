@@ -13,38 +13,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Ahorro</title>
     </h:head>
-
+    <ui:include src="/menu.xhtml" />
     <body>
         <div class="container">
             <div class="row">
                 <div class="col">
                 </div>
                 <p:growl id="mensaje" showDetail="true"/>
-                <p:menubar >
-                    <p:submenu label="Cliente" icon="pi pi-user">
-                        <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
-                        <p:divider />
-                        <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
-                        <p:divider />
-                    </p:submenu>
-
-                    <p:submenu label="Cuenta" icon="pi pi-user">
-                        <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
-                        <p:divider />
-
-
-                        <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listcuenta.xhtml"/>
-                        <p:divider />
-                    </p:submenu> 
-                    <p:submenu label="Ahorro" icon="pi pi-user">
-                        <p:menuitem  value="Deposito" icon="pi pi-fw pi-plus"  url="Ahorro.xhtml"/>
-                        <p:divider />
-                        <p:menuitem value="Retiro" icon="pi pi-fw pi-trash"  url="Retiro.xhtml"/>
-                        <p:divider />
-                    </p:submenu> 
-                    <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
-                    <p:divider layout="vertical"/>
-                </p:menubar>
                 <h:form id="frmExclos" style="margin:20px;border-style: solid;border-width: 1" >
                     <p:panel id="form" style="width: auto;margin: 0 auto; ">
                         <h1>Numero de cuenta</h1>
