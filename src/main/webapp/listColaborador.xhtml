@@ -26,7 +26,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <div class="card">
             <h:form id="frmExclos">
                 <p:growl  id="mensajeGeneral3" sticky="false" showDetail="true"/>   
-                <p:dataTable id="products" var="a" value="#{colaboradorBean.list}" editable="true" styleClass="tabla">
+                <p:dataTable id="products" var="a" value="#{colaboradorBean.list}" editable="true" styleClass="tabla" >
 
                     <p:ajax listener="#{colaboradorBean.edit(a)}"  event="rowEdit" update=":frmExclos:mensajeGeneral3"/>
 

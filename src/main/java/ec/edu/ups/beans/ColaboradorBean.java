@@ -12,6 +12,7 @@ import ec.edu.ups.poyectoingenieriasoftware.modelo.Socio;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -198,7 +199,7 @@ public class ColaboradorBean implements Serializable {
         this.fechaN = fechaN;
     }
 
-    public String iniciarSesion() {
+    public String iniciarSesions() {
         String redireccion = null;
         try {
             menuFacade.iniciarUsuario(colaborador);
@@ -207,6 +208,8 @@ public class ColaboradorBean implements Serializable {
         }
         return redireccion;
     }
+
+    
 
     public void limpiar() {
         this.apellido = "";

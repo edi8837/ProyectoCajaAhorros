@@ -36,8 +36,7 @@ public class IndexController implements Serializable {
 
     @PostConstruct
     public void init() {
-        usuario = new Colaborador();
-
+        this.usuario = new Colaborador();
     }
 
     public Colaborador getUsuario() {
@@ -47,9 +46,31 @@ public class IndexController implements Serializable {
     public void setUsuario(Colaborador usuario) {
         this.usuario = usuario;
     }
-
- 
     public String iniciarSesion() {
+        Colaborador co;
+        String redireccion = null;
+        System.out.println(this.usuario.getUsuario());
+        try {
+            co = uFacade.iniciarSesion(usuario);
+            if (co != null) {
+                //Almacenar en la sesion de JSF
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", co);// (put) con esto hago un seguimiento de la sesion iniciada
+                redireccion = "Socio.xhtml?faces-redirect=true";
+                //return "http://localhost:8080/Sistema_Farmacia/vista/cliente/Cliente.xhtml";
+            } else {
+                System.out.println("Entro mal");
+            }
+
+        } catch (Exception e) {
+        }
+        return redireccion;
+    }
+
+    public void cerrarSesion() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    }
+ 
+    public String iniciarSesions() {
         String redireccion = null;
         try {
             menuFacade.iniciarUsuario(usuario);
@@ -59,7 +80,7 @@ public class IndexController implements Serializable {
         return redireccion;
     }
 
-    public String iniciarSesions() {
+    public String iniciarSesionss() {
         System.out.println("VERIFICANDO INICIARSESION");
         String redireccion = null;
         Colaborador u;
