@@ -8,12 +8,14 @@ import jakarta.persistence.CascadeType;
 import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  *
@@ -29,6 +31,8 @@ public class Colaborador extends Persona implements Serializable {
     private String rol;
     private String usuario;
     private String contracenia;
+    @OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL)
+    private List<Solicitud> solicitud;
 
     public Colaborador() {
     }

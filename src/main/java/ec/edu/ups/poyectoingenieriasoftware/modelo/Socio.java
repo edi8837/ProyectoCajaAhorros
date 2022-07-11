@@ -40,10 +40,6 @@ public class Socio extends Persona implements Serializable {
     }
 
 
-    
-
-   
-
     public String getLugarTrabajo() {
         return lugarTrabajo;
     }
@@ -54,7 +50,8 @@ public class Socio extends Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Socio{" + "lugarTrabajo=" + lugarTrabajo + '}';
+        return "Socio{" + "lugarTrabajo=" + lugarTrabajo + ", cuentas=" + cuentas + '}';
     }
 
+    
 }

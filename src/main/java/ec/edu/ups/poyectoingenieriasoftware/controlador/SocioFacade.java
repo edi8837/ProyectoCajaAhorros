@@ -81,8 +81,5 @@ public class SocioFacade extends AbstractFacade<Socio> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
-    }
-    
-    
-    
+    }  
 }

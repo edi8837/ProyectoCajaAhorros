@@ -11,13 +11,9 @@ import ec.edu.ups.poyectoingenieriasoftware.modelo.Colaborador;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.bean.ViewScoped;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ActionEvent;
 import jakarta.inject.Named;
-import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
 
 /**

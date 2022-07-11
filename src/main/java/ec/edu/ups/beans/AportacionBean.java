@@ -5,8 +5,10 @@
 package ec.edu.ups.beans;
 
 import ec.edu.ups.poyectoingenieriasoftware.controlador.AhorroFacade;
+import ec.edu.ups.poyectoingenieriasoftware.controlador.AportacionFacade;
 import ec.edu.ups.poyectoingenieriasoftware.controlador.CuentaFacade;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Ahorro;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Aportacion;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Cuenta;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Persona;
 import jakarta.annotation.PostConstruct;
@@ -26,20 +28,20 @@ import java.util.List;
  */
 @Named
 @SessionScoped
-public class AhorroBean implements Serializable {
+public class AportacionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private int id;
     @EJB
     private CuentaFacade cuentaFacade;
     @EJB
-    private AhorroFacade ahorroFacade;
-    private List<Ahorro> list = new ArrayList<>();
+    private AportacionFacade aportacionFacade;
+    private List<Aportacion> list = new ArrayList<>();
     private List<Cuenta> listaCuenta = new ArrayList<>();
-    private int id;
     private double valor;
     private char tipoAhorro;
     private Date fecha;
-    private Ahorro ahorro;
+    private Aportacion aportacion;
     private Cuenta cuenta;
     private Persona persona;
     private int numero;
@@ -52,20 +54,28 @@ public class AhorroBean implements Serializable {
 
     @PostConstruct//Esto es una notacion de EJB que nos dice que
     public void init() {//este metodo init se va a ejecutar despues 
-        this.list = ahorroFacade.findAll();//de que se ha creado o visualizado el JSF o el bean
+        this.list = aportacionFacade.findAll();//de que se ha creado o visualizado el JSF o el bean
         this.listaCuenta = cuentaFacade.findAll();
     }
 
-    public String delete(Ahorro a) {
-        ahorroFacade.remove(a);
-        list = ahorroFacade.findAll();
+    public String delete(Aportacion a) {
+        aportacionFacade.remove(a);
+        list = aportacionFacade.findAll();
         return null;
     }
 
-    public String edit(Ahorro a) {
-        ahorroFacade.edit(a);
-        list = ahorroFacade.findAll();
+    public String edit(Aportacion a) {
+        aportacionFacade.edit(a);
+        list = aportacionFacade.findAll();
         return null;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public CuentaFacade getCuentaFacade() {
@@ -76,28 +86,28 @@ public class AhorroBean implements Serializable {
         this.cuentaFacade = cuentaFacade;
     }
 
-    public AhorroFacade getAhorroFacade() {
-        return ahorroFacade;
+    public AportacionFacade getAportacionFacade() {
+        return aportacionFacade;
     }
 
-    public void setAhorroFacade(AhorroFacade ahorroFacade) {
-        this.ahorroFacade = ahorroFacade;
+    public void setAportacionFacade(AportacionFacade aportacionFacade) {
+        this.aportacionFacade = aportacionFacade;
     }
 
-    public List<Ahorro> getList() {
+    public List<Aportacion> getList() {
         return list;
     }
 
-    public void setList(List<Ahorro> list) {
+    public void setList(List<Aportacion> list) {
         this.list = list;
     }
 
-    public int getId() {
-        return id;
+    public List<Cuenta> getListaCuenta() {
+        return listaCuenta;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setListaCuenta(List<Cuenta> listaCuenta) {
+        this.listaCuenta = listaCuenta;
     }
 
     public double getValor() {
@@ -124,12 +134,12 @@ public class AhorroBean implements Serializable {
         this.fecha = fecha;
     }
 
-    public Ahorro getAhorro() {
-        return ahorro;
+    public Aportacion getAportacion() {
+        return aportacion;
     }
 
-    public void setAhorro(Ahorro ahorro) {
-        this.ahorro = ahorro;
+    public void setAportacion(Aportacion aportacion) {
+        this.aportacion = aportacion;
     }
 
     public Cuenta getCuenta() {
@@ -148,14 +158,6 @@ public class AhorroBean implements Serializable {
         this.persona = persona;
     }
 
-    public List<Cuenta> getListaCuenta() {
-        return listaCuenta;
-    }
-
-    public void setListaCuenta(List<Cuenta> listaCuenta) {
-        this.listaCuenta = listaCuenta;
-    }
-
     public int getNumero() {
         return numero;
     }
@@ -170,14 +172,6 @@ public class AhorroBean implements Serializable {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
-    }
-
-    public int getNumeroCuenta() {
-        return numeroCuenta;
-    }
-
-    public void setNumeroCuenta(int numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
     }
 
     public String getCedula() {
@@ -204,6 +198,22 @@ public class AhorroBean implements Serializable {
         this.apellido = apellido;
     }
 
+    public int getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public void setNumeroCuenta(int numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
+    }
+
+    public String getNombreCuenta() {
+        return nombreCuenta;
+    }
+
+    public void setNombreCuenta(String nombreCuenta) {
+        this.nombreCuenta = nombreCuenta;
+    }
+
     public String cuentaBusqueda() {
         mensaje = "";
         System.out.println(numero);
@@ -222,33 +232,33 @@ public class AhorroBean implements Serializable {
     }
 
     public String add() {
-        ahorro = new Ahorro();
-        ahorro.setValor(valor);
-        ahorro.setTipoAhorro('D');
-        ahorro.setFecha(new Date());
-        ahorro.setCuenta(cuenta);
+        aportacion = new Aportacion();
+        aportacion.setValor(valor);
+        aportacion.setTipoAportacion('D');
+        aportacion.setFecha(new Date());
+        aportacion.setCuenta(cuenta);
         Persona persona1 = new Persona();
         persona1.setCedula(cedula);
         persona1.setNombre(nombre);
         persona1.setApellido(apellido);
-        ahorro.setPersona(persona1);
-        System.out.println(ahorro);
+        aportacion.setPersona(persona1);
+        System.out.println(aportacion);
         System.out.println("¿¿¿¿¿¿¿¿¿¿¿¿");
-        ahorroFacade.guardar(ahorro);
-        list = ahorroFacade.findAll();
+        aportacionFacade.guardar(aportacion);
+        list = aportacionFacade.findAll();
         aumentarMonto();
         Limpiar();
-        return "Ahorro.xhtml?faces-redirect=true";
+        return "Aportacion.xhtml?faces-redirect=true";
     }
 
     public String addR() {
-        ahorro = new Ahorro();
-        ahorro.setValor(valor);
-        ahorro.setTipoAhorro('R');
-        ahorro.setFecha(new Date());
-        ahorro.setCuenta(cuenta);
-        ahorroFacade.guardar(ahorro);
-        list = ahorroFacade.findAll();
+        aportacion = new Aportacion();
+        aportacion.setValor(valor);
+        aportacion.setTipoAportacion('R');
+        aportacion.setFecha(new Date());
+        aportacion.setCuenta(cuenta);
+        aportacionFacade.guardar(aportacion);
+        list = aportacionFacade.findAll();
         reducirMonto();
         Limpiar();
         return "Retiro.xhtml?faces-redirect=true";
@@ -256,28 +266,28 @@ public class AhorroBean implements Serializable {
 
     public void aumentarMonto() {
         double aumentar = 0.00;
-            aumentar = cuenta.getMonto() + valor;
-            cuenta.setMonto(aumentar);
-            System.out.println(aumentar);
-            cuentaFacade.edit(cuenta);
-            this.listaCuenta = cuentaFacade.findAll();
+        aumentar = cuenta.getMonto() + valor;
+        cuenta.setMonto(aumentar);
+        System.out.println(aumentar);
+        cuentaFacade.edit(cuenta);
+        this.listaCuenta = cuentaFacade.findAll();
     }
 
     public void reducirMonto() {
         double reducir = 0.00;
 //        for (Cuenta cuenta : listaCuenta) {
-            if (this.cuenta.getMonto() >= valor) {
-                System.out.println(cuenta.getMonto()+"Hola");
-                reducir = cuenta.getMonto() - valor;
-                System.out.println(reducir);
-                cuenta.setMonto(reducir);
-                cuentaFacade.edit(cuenta);
-                this.listaCuenta = cuentaFacade.findAll();
-                
-            } else {
-                System.out.println("NO EXISTE 1");
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No puede retirar"));
-            }
+        if (this.cuenta.getMonto() >= valor) {
+            System.out.println(cuenta.getMonto() + "Hola");
+            reducir = cuenta.getMonto() - valor;
+            System.out.println(reducir);
+            cuenta.setMonto(reducir);
+            cuentaFacade.edit(cuenta);
+            this.listaCuenta = cuentaFacade.findAll();
+
+        } else {
+            System.out.println("NO EXISTE 1");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No puede retirar"));
+        }
 //        }
     }
 
@@ -287,4 +297,5 @@ public class AhorroBean implements Serializable {
         this.apellido = "";
         this.cedula = "";
     }
+
 }

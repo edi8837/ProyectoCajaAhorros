@@ -46,7 +46,7 @@ public class CuentaBean implements Serializable {
 
     @PostConstruct//Esto es una notacion de EJB que nos dice que
     public void init() {//este metodo init se va a ejecutar despues 
-        list = cuentaFacade.findAll();//de que se ha creado o visualizado el JSF o el bean
+        this.list = cuentaFacade.findAll();//de que se ha creado o visualizado el JSF o el bean
     }                                  // esto se lo hace ya que puede que no se haya renderizado toda la vista y ya quiera llamar a buscar la info//lo cual puede arrojar un error  
 
     public String add() {
@@ -61,7 +61,7 @@ public class CuentaBean implements Serializable {
         cuentaFacade.create(cuenta);
         list = cuentaFacade.findAll();
         limpiar();
-        return "buscarSocio.xhtml?faces-redirect=true";
+        return "Cuenta.xhtml?faces-redirect=true";
     }
 
     public String delete(Cuenta c) {
@@ -79,7 +79,7 @@ public class CuentaBean implements Serializable {
      
     public String edit(Cuenta c) {
         cuentaFacade.edit(c);
-        list = cuentaFacade.findAll();
+        this.list = cuentaFacade.findAll();
         return null;
     }
 

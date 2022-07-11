@@ -71,10 +71,6 @@ public class Persona implements Serializable {
         this.telefono = telefono;
     }
 
-  
-
-    
-    
 
     public int getId() {
         return id;
@@ -182,9 +178,8 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Entidad{" + "id=" + id + ", identificador=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", direccion=" + direccion + ", telefono=" + telefono + '}';
-    }
-    
+        return "Persona{" + "id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", direccion=" + direccion + ", fechaN=" + fechaN + ", telefono=" + telefono + ", ahorro=" + ahorro + ", editable=" + editable + '}';
+    } 
     
 
 }

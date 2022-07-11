@@ -27,7 +27,7 @@ import org.primefaces.model.menu.MenuModel;
 @Named
 //@RequestScoped
 @SessionScoped
-public class MenuBean implements Serializable {
+public class MenuBean implements Serializable { 
 
     @EJB
     private MenuFacade menuFacade;

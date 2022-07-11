@@ -8,7 +8,7 @@
           rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"/>
     <h:head>
         <title>Menu</title>
-        
+
     </h:head>
 
     <h:body>
@@ -37,6 +37,18 @@
                         <p:menuitem value="Retirar" icon="pi pi-fw pi-trash"  url="Retiro.xhtml"/>
                     </p:submenu>
 
+                    <p:divider layout="vertical"/>
+                    <p:submenu label="Aportacion" icon="pi pi-user">
+                        <p:menuitem value="Depositar" icon="pi pi-fw pi-plus" url="Aportacion.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Retirar" icon="pi pi-fw pi-trash"  url="RetiroA.xhtml"/>
+                    </p:submenu>
+                    <p:divider layout="vertical"/>
+                    <p:submenu label="Creditos" icon="pi pi-user">
+                        <p:menuitem value="Solicitud de Creditos" icon="pi pi-fw pi-plus" url="SolicitudCredito.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Aprovacion" icon="pi pi-fw pi-trash"  url="RetiroA.xhtml"/>
+                    </p:submenu>
                     <p:menuitem value="Salir" actionListener="#{colaboradorBean.cerrarSesion()}" url="InicioSesion.xhtml" icon="pi pi-fw pi-power-off" />
                     <p:divider layout="vertical"/>
 

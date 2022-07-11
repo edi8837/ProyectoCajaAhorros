@@ -27,7 +27,7 @@ public class Aportacion extends Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private double valor;
-    private char tipoAhorro;
+    private char tipoAportacion;
     private Date fecha;
     @ManyToOne
     @JoinColumn(nullable = true)
@@ -39,10 +39,10 @@ public class Aportacion extends Persona implements Serializable {
     public Aportacion() {
     }
 
-    public Aportacion(int id, double valor, char tipoAhorro, Date fecha, Cuenta cuenta) {
+    public Aportacion(int id, double valor, char tipoAportacion, Date fecha, Cuenta cuenta) {
         this.id = id;
         this.valor = valor;
-        this.tipoAhorro = tipoAhorro;
+        this.tipoAportacion = tipoAportacion;
         this.fecha = fecha;
         this.cuenta = cuenta;
     }
@@ -50,7 +50,7 @@ public class Aportacion extends Persona implements Serializable {
     public Aportacion(int id, double valor, char tipoAhorro, Date fecha, Cuenta cuenta, Persona persona) {
         this.id = id;
         this.valor = valor;
-        this.tipoAhorro = tipoAhorro;
+        this.tipoAportacion = tipoAhorro;
         this.fecha = fecha;
         this.cuenta = cuenta;
         this.persona = persona;
@@ -72,12 +72,12 @@ public class Aportacion extends Persona implements Serializable {
         this.valor = valor;
     }
 
-    public char getTipoAhorro() {
-        return tipoAhorro;
+    public char getTipoAportacion() {
+        return tipoAportacion;
     }
 
-    public void setTipoAhorro(char tipoAhorro) {
-        this.tipoAhorro = tipoAhorro;
+    public void setTipoAportacion(char tipoAportacion) {
+        this.tipoAportacion = tipoAportacion;
     }
 
     public Date getFecha() {
@@ -106,7 +106,7 @@ public class Aportacion extends Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Ahorro{" + "id=" + id + ", valor=" + valor + ", tipoAhorro=" + tipoAhorro + ", fecha=" + fecha + ", cuenta=" + cuenta + ", persona=" + persona + '}';
+        return "Ahorro{" + "id=" + id + ", valor=" + valor + ", tipoAportacion=" + tipoAportacion + ", fecha=" + fecha + ", cuenta=" + cuenta + ", persona=" + persona + '}';
     }
 
 }
