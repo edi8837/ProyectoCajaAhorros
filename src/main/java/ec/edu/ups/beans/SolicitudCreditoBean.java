@@ -45,7 +45,7 @@ public class SolicitudCreditoBean implements Serializable {
     private String lugarT;
     private int numero;
     private String cedula;
-    private String nombreCuenta;
+    private String tipoDeCuenta;
     private double ingresM;
     private Socio socio;
     private Cuenta cuenta;
@@ -56,26 +56,8 @@ public class SolicitudCreditoBean implements Serializable {
     public void init() {//este metodo init se va a ejecutar despues 
         this.list = creditoFacade.findAll();//de que se ha creado o visualizado el JSF o el bean
         this.listC = cuentaFacade.findAll();
-        listS = socioFacade.findAll();
+        this.listS = socioFacade.findAll();
     }
-
-    public String cuentaBusqueda() {
-        mensaje = "";
-        System.out.println(numero);
-        for (Cuenta cuenta : listC) {
-            System.out.println("Entro");
-            if (numero == cuenta.getNumero()) {
-                System.out.println("Cuenta Encontrada");
-                mensaje = "Cuenta Encontrada";
-                nombreCuenta = cuenta.getSocio().getNombre();
-                this.cuenta = cuenta;
-            }
-            System.out.println("No entro");
-        }
-        return null;
-    }
-
-    
 
     public int getId() {
         return id;
@@ -221,12 +203,12 @@ public class SolicitudCreditoBean implements Serializable {
         this.numero = numero;
     }
 
-    public String getNombreCuenta() {
-        return nombreCuenta;
+    public String getTipoDeCuenta() {
+        return tipoDeCuenta;
     }
 
-    public void setNombreCuenta(String nombreCuenta) {
-        this.nombreCuenta = nombreCuenta;
+    public void setTipoDeCuenta(String tipoDeCuenta) {
+        this.tipoDeCuenta = tipoDeCuenta;
     }
 
     public SolicitudCredito getCredito() {
@@ -236,31 +218,67 @@ public class SolicitudCreditoBean implements Serializable {
     public void setCredito(SolicitudCredito credito) {
         this.credito = credito;
     }
-    
+
     public String clienteBusqueda() {
         mensaje = "";
         System.out.println(cedula);
         for (Socio socio : listS) {
-            if (cedula.equals(socio.getCedula())) {
+            if (socio.getCedula().equalsIgnoreCase(cedula)) {
+                System.out.println("Se encontro");
                 mensaje = "Cedula Encontrada";
                 numeroCedula = socio.getCedula();
                 this.socio = socio;
             }
-            System.out.println("No entro");
+
         }
         return null;
     }
+
+    public String cuentaBusqueda() {
+        mensaje = "";
+        System.out.println(numero);
+        for (Cuenta cuenta : listC) {
+            System.out.println("Entro");
+            if (numero == cuenta.getNumero()) {
+                mensaje = "Cuenta Encontrada";
+                tipoDeCuenta = cuenta.getTipoDeCuenta();
+                System.out.println(tipoDeCuenta);
+                this.cuenta = cuenta;
+            }
+        }
+        return null;
+    }
+
     public String add() {
         credito = new SolicitudCredito();
         credito.setCantidad(cantidad);
-        credito.setCuenta(null);
+        credito.setCuenta(cuenta);
         credito.setFechaEmicion(new Date());
         credito.setIngresoMensual(ingresM);
         credito.setLugarTrabajo(lugarT);
         credito.setMotivo(motivo);
-        credito.setSocio(null);
-        creditoFacade.create(credito);
-        list = creditoFacade.findAll();
-        return "SolicituCredito.xhtml?faces-redirect=true";
+        credito.setSocio(socio);
+        if (socio != null && cuenta != null) {
+            if (socio.getCedula().equals(cuenta.getSocio().getCedula())) {
+                credito.setEstado('E');
+                creditoFacade.create(credito);
+                list = creditoFacade.findAll();
+                limpiar();
+                return "SolicitudCredito.xhtml?faces-redirect=true";
+            }
+            return "El numero de la cuenta no le pertenece al cliente";
+        }
+//        if (cuenta.getSocio().getCedula().equals(socio.getCedula())) {
+//        }
+        return "El numero de la cuenta no le pertenece al cliente";
+    }
+
+    public void limpiar() {
+        this.cantidad = 0.00;
+        this.cedula = "";
+        this.ingresM = 0.00;
+        this.lugarT = "";
+        this.motivo = "";
+        this.numero = 0;
     }
 }

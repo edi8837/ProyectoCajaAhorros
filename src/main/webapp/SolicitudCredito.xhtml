@@ -32,7 +32,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <div >
                             <b><label for="txtNombre">Nombre de Persona: </label></b>
                             <h:outputText class="input-group-text" id="cedula"
-                                          value="#{solicitudCreditoBean.cuenta.socio.nombre}" />
+                                          value="#{solicitudCreditoBean.socio.nombre}" />
+                        </div>
+                    </p:panel>
+                </h:form>
+                <h:form id="frmCuenta" style="margin:20px;border-style: solid">
+                     <p:panel id="fromC" style="width: auto;margin: 0 auto; ">
+                        <h1>Numero de Cuenta</h1>
+                        <p:inputText id="numeroC" value="#{solicitudCreditoBean.numero}" p:placeholder="Numero de Cuenta" class="form-control" required="true">
+                            <f:passThroughAttribute name="placeholder" value="NumeroC"/>            
+                        </p:inputText>
+                        <p:message for="numeroC" style="color:red;"/>
+                        <p:commandButton action="#{solicitudCreditoBean.cuentaBusqueda}" value="Buscar" update=":frmExclos">
+                        </p:commandButton>
+                        <div >
+                            <b><label for="txtNombreP">Tipo de Cuenta:</label></b>
+                            <h:outputText class="input-group-text" id="tipodecuenta"
+                                          value="#{solicitudCreditoBean.cuenta.tipoDeCuenta}" />
                         </div>
                     </p:panel>
                 </h:form>
@@ -61,18 +77,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 <div class="ui-inputgroup">
                                     <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
                                     <p:inputText id="txtIngresoM" placeholder="IngresoMensual:" value="#{solicitudCreditoBean.ingresM}" required="true" />
-                                </div>
-                                <h5>Numero de Cuenta</h5>
-                                <p:inputText id="numero" value="#{solicitudCreditoBean.numero}" p:placeholder="NumeroC" class="form-control" required="true">
-                                    <f:passThroughAttribute name="placeholder" value="Cuenta:"/>            
-                                </p:inputText>
-                                <p:message for="numero" style="color:red;"/>
-                                <p:commandButton action="#{solicitudCreditoBean.cuentaBusqueda}" value="Buscar" update=":frmExclos" >
-                                </p:commandButton>
-                                <div >
-                                    <b><label for="txtNumero">Nombre de Persona: </label></b>
-                                    <h:outputText class="input-group-text" id="numeroC"
-                                                  value="#{solicitudCreditoBean.cuenta.socio.nombre}" />
                                 </div>
                             </div>
                         </div>

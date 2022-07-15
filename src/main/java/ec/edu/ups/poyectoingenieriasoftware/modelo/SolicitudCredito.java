@@ -35,13 +35,14 @@ public class SolicitudCredito implements Serializable {
     private double ingresoMensual;
     private Socio socio;
     private Cuenta cuenta;
+    private char estado;
     @OneToMany(mappedBy = "solicitudCredito", cascade = CascadeType.ALL)
     private List<Solicitud> solicitud;
 
     public SolicitudCredito() {
     }
 
-    public SolicitudCredito(int id, double cantidad, Date fechaEmicion, String motivo, String lugarTrabajo, double ingresoMensual, Socio socio, Cuenta cuenta, List<Solicitud> solicitud) {
+    public SolicitudCredito(int id, double cantidad, Date fechaEmicion, String motivo, String lugarTrabajo, double ingresoMensual, Socio socio, Cuenta cuenta, char estado, List<Solicitud> solicitud) {
         this.id = id;
         this.cantidad = cantidad;
         this.fechaEmicion = fechaEmicion;
@@ -50,10 +51,10 @@ public class SolicitudCredito implements Serializable {
         this.ingresoMensual = ingresoMensual;
         this.socio = socio;
         this.cuenta = cuenta;
+        this.estado = estado;
         this.solicitud = solicitud;
     }
-    
-    
+
     public int getId() {
         return id;
     }
@@ -126,10 +127,17 @@ public class SolicitudCredito implements Serializable {
         this.solicitud = solicitud;
     }
 
+    public char getEstado() {
+        return estado;
+    }
+
+    public void setEstado(char estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "SolicitudCredito{" + "id=" + id + ", cantidad=" + cantidad + ", fechaEmicion=" + fechaEmicion + ", motivo=" + motivo + ", lugarTrabajo=" + lugarTrabajo + ", ingresoMensual=" + ingresoMensual + ", socio=" + socio + ", cuenta=" + cuenta + ", solicitud=" + solicitud + '}';
+        return "SolicitudCredito{" + "id=" + id + ", cantidad=" + cantidad + ", fechaEmicion=" + fechaEmicion + ", motivo=" + motivo + ", lugarTrabajo=" + lugarTrabajo + ", ingresoMensual=" + ingresoMensual + ", socio=" + socio + ", cuenta=" + cuenta + ", estado=" + estado + ", solicitud=" + solicitud + '}';
     }
-    
-    
+
 }
