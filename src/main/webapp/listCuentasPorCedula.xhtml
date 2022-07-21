@@ -11,27 +11,59 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
        xmlns:p="http://primefaces.org/ui"
        template="/WEB-INF/template.xhtml">
     <h:head>
-        <title>Lista de Cuentas</title>
+        <title>Lista de Socios</title>
     </h:head> 
-    <ui:include src="/menu.xhtml" />
+
     <h:body>
         <div class="card">
             <h:form>
                 <p:growl id="messages"/>
 
-               
+                <p:menubar >
+                    <p:submenu label="Cliente" icon="pi pi-user">
+                        <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
+                        <p:divider />
+                    </p:submenu>
+
+                    <p:submenu label="Cuenta" icon="pi pi-user">
+                        <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="listarCuentas" icon="pi pi-fw pi-trash"  url="listCuenta.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
+                        <p:divider />
+                    </p:submenu> 
+
+                    <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
+                    <p:divider layout="vertical"/>
+
+                </p:menubar>
+
             </h:form>
         </div>
         <div class="card">
             <h:form id="frmExclos">
-                <p:growl  id="mensajeGeneral3" sticky="false" showDetail="true"/>   
-                <p:dataTable id="products" var="a" value="#{ahorroBean.listaCuenta}" editable="true" styleClass="tabla">
+<p:message for="cedula" style="color:red;"/>
 
-                    <p:ajax listener="#{cuentaBean.edit(a)}"  event="rowEdit" update=":frmExclos:mensajeGeneral3"/>
+                <h1>Cedula del socio</h1>
+                        <p:inputText id="cedula" value="#{cuentaBean.cedula}" p:placeholder="Cédula" class="form-control" required="true">
+                            <f:passThroughAttribute name="placeholder" value="Cédula"/>            
+                        </p:inputText>
+                        
+
+
+                        <p:commandButton action="#{cuentaBean.buscarPorSocio}" value="Buscar" update=":frmExclos">
+
+                        </p:commandButton>
+                 <p:dataTable id="products" var="a" value="#{cuentaBean.listCSocios}" editable="true" styleClass="tabla">
+
+                    <p:ajax listener="#{cuentaBean.edit(a)}"  event="rowEdit" />
 
                     <f:facet name="header">
                         <div class="p-d-flex p-jc-between p-ai-center">
-                            <h1>Lista de Socios</h1>
+                            <h1>Lista de cuentas del socio</h1>
                             <div>
                                 <p:commandButton styleClass="ui-button-success" id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
                                 <p:columnToggler datasource="products" trigger="toggler"/>
@@ -88,6 +120,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText   value="#{a.fechaApertura}">
                             <f:convertDateTime pattern="dd-MM-yyyy" />
                         </h:outputText>
+                    </p:column>
+                    <p:column headerText="Moviminetos">
+                        <p:commandButton value="movimientos" action="#{ahorroBean.verahorros(a.id)}"  styleClass="ui-button-raised ui-button-danger"/>
                     </p:column>
                     <p:column headerText="Eliminar">
                         <p:commandButton value="Eliminar" action="#{cuentaBean.delete(a)}" update="products" styleClass="ui-button-raised ui-button-danger"/>

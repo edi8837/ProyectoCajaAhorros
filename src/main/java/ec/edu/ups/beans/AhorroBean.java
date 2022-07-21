@@ -9,6 +9,7 @@ import ec.edu.ups.poyectoingenieriasoftware.controlador.CuentaFacade;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Ahorro;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Cuenta;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Persona;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Socio;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
@@ -35,6 +36,7 @@ public class AhorroBean implements Serializable {
     private AhorroFacade ahorroFacade;
     private List<Ahorro> list = new ArrayList<>();
     private List<Cuenta> listaCuenta = new ArrayList<>();
+    private List<Ahorro> listaAhorros = new ArrayList<>();
     private int id;
     private double valor;
     private char tipoAhorro;
@@ -204,6 +206,22 @@ public class AhorroBean implements Serializable {
         this.apellido = apellido;
     }
 
+    public List<Ahorro> getListaAhorros() {
+        return listaAhorros;
+    }
+
+    public void setListaAhorros(List<Ahorro> listaAhorros) {
+        this.listaAhorros = listaAhorros;
+    }
+
+    public String getNombreCuenta() {
+        return nombreCuenta;
+    }
+
+    public void setNombreCuenta(String nombreCuenta) {
+        this.nombreCuenta = nombreCuenta;
+    }
+
     public String cuentaBusqueda() {
         mensaje = "";
         System.out.println(numero);
@@ -256,29 +274,47 @@ public class AhorroBean implements Serializable {
 
     public void aumentarMonto() {
         double aumentar = 0.00;
-            aumentar = cuenta.getMonto() + valor;
-            cuenta.setMonto(aumentar);
-            System.out.println(aumentar);
-            cuentaFacade.edit(cuenta);
-            this.listaCuenta = cuentaFacade.findAll();
+        aumentar = cuenta.getMonto() + valor;
+        cuenta.setMonto(aumentar);
+        System.out.println(aumentar);
+        cuentaFacade.edit(cuenta);
+        this.listaCuenta = cuentaFacade.findAll();
     }
 
     public void reducirMonto() {
         double reducir = 0.00;
 //        for (Cuenta cuenta : listaCuenta) {
-            if (this.cuenta.getMonto() >= valor) {
-                System.out.println(cuenta.getMonto()+"Hola");
-                reducir = cuenta.getMonto() - valor;
-                System.out.println(reducir);
-                cuenta.setMonto(reducir);
-                cuentaFacade.edit(cuenta);
-                this.listaCuenta = cuentaFacade.findAll();
-                
-            } else {
-                System.out.println("NO EXISTE 1");
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No puede retirar"));
-            }
+        if (this.cuenta.getMonto() >= valor) {
+            System.out.println(cuenta.getMonto() + "Hola");
+            reducir = cuenta.getMonto() - valor;
+            System.out.println(reducir);
+            cuenta.setMonto(reducir);
+            cuentaFacade.edit(cuenta);
+            this.listaCuenta = cuentaFacade.findAll();
+
+        } else {
+            System.out.println("NO EXISTE 1");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No puede retirar"));
+        }
 //        }
+    }
+
+    public String verahorros(int id) {
+        listaAhorros.clear();
+
+        System.out.println("entra");
+        List<Ahorro> ahorros1 = ahorroFacade.findAll();
+
+        for (int i = 0; i < ahorros1.size(); i++) {
+            Ahorro a = ahorros1.get(i);
+
+            if (a.getCuenta().getId() == id) {
+                listaAhorros.add(a);
+
+            }
+        }
+        System.out.println(listaAhorros);
+        return "listMoviminetos.xhtml?faces-redirect=true";
     }
 
     public void Limpiar() {

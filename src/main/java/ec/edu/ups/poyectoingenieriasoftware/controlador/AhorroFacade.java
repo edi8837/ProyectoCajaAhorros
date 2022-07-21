@@ -5,6 +5,7 @@
 package ec.edu.ups.poyectoingenieriasoftware.controlador;
 
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Ahorro;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Cuenta;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -30,5 +31,10 @@ public class AhorroFacade extends AbstractFacade<Ahorro> {
 
     public void guardar(Ahorro ahorro) {
         em.merge(ahorro);
+    }
+    public Ahorro getSocioById(int id){
+        String jpql = "SELECT c FROM Cuenta c WHERE c.id =" + id;
+        Ahorro ahorro = (Ahorro) em.createQuery(jpql).getSingleResult();
+        return ahorro;
     }
 }

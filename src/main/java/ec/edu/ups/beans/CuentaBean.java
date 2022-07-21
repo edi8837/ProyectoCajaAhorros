@@ -33,7 +33,8 @@ public class CuentaBean implements Serializable {
     @EJB
     private CuentaFacade cuentaFacade;
 //mando mi fachada
-    private List<Cuenta> list = new ArrayList<>();// lista de Clientes , se usa el List por el findAll()
+    private List<Cuenta> list = new ArrayList<>();
+ private List<Cuenta> listCSocios = new ArrayList<>();// lista de Clientes , se usa el List por el findAll()
     private int id;
     private String cedula;
     private int numero;
@@ -185,9 +186,18 @@ public class CuentaBean implements Serializable {
     public void setMonto(double monto) {
         this.monto = monto;
     }
+
+    public List<Cuenta> getListCSocios() {
+        return listCSocios;
+    }
+
+    public void setListCSocios(List<Cuenta> listCSocios) {
+        this.listCSocios = listCSocios;
+    }
+    
     
     public void buscarSocio() {
-
+        
         System.out.println(cedula);
 
         socio = socioFacade.buscarClientePorCedula(cedula);
@@ -206,5 +216,20 @@ public class CuentaBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Socio  no existe"));
         }
 
+    }
+    public void buscarPorSocio(){
+        listCSocios.clear();
+        System.out.println("entra");
+        List<Cuenta> cuentas1= cuentaFacade.findAll();
+        Socio socio1 = socioFacade.buscarClientePorCedula(cedula);
+         for (int i = 0; i < cuentas1.size(); i++) {
+                Cuenta c = cuentas1.get(i);
+                if (c.getSocio().getId()== socio1.getId()) {
+                    listCSocios.add(c);
+                 
+             }
+         }
+         System.out.println(listCSocios);
+ 
     }
 }
