@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui"
+       template="/WEB-INF/template.xhtml">
+    <h:head>
+        <title>Lista de Socios</title>
+    </h:head> 
+
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:growl id="messages"/>
+
+                <p:menubar >
+                    <p:submenu label="Cliente" icon="pi pi-user">
+                        <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
+                        <p:divider />
+                    </p:submenu>
+
+                    <p:submenu label="Cuenta" icon="pi pi-user">
+                        <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
+                        <p:divider />
+                       
+          
+                        <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listcuenta.xhtml"/>
+                        <p:divider />
+                    </p:submenu> 
+
+                    <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
+                    <p:divider layout="vertical"/>
+
+                </p:menubar>
+
+            </h:form>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                </div>
+               <p:growl id="mensaje" showDetail="true"/>
+                    <h:form id="frmExclos" style="margin:20px;border-style: solid;border-width: 1" >
+                        <p:panel id="form" style="width: auto;margin: 0 auto; ">
+                            <h1>Datos del Socio</h1>
+                            <p:inputText id="cedula" value="#{cuentaBean.cedula}" p:placeholder="Cédula" class="form-control" required="true">
+                                <f:passThroughAttribute name="placeholder" value="Cédula"/>            
+                            </p:inputText>
+                            <p:message for="cedula" style="color:red;"/>
+
+
+
+                            <p:commandButton action="#{cuentaBean.buscarSocio}" value="Buscar" update=":frmExclos">
+
+                            </p:commandButton>
+                            <div >
+                                <b><label for="txtNombrePer">Nombre del Soccio: </label></b>
+                                <h:outputText class="input-group-text" id="nombre"
+                                              value="#{cuentaBean.socio.nombre}" />
+                            </div>
+                            <div >
+                                <b><label for="txtApellido">Apellido del Soccio: </label></b>
+                                <h:outputText class="input-group-text" id="apellido"
+                                              value="#{cuentaBean.socio.apellido}" />
+                            </div>
+                            <div >
+                                <b><label for="txtcorreo">correo del Soccio: </label></b>
+                                <h:outputText class="input-group-text" id="correo"
+                                              value="#{cuentaBean.socio.correo}" />
+                            </div>
+                            <div >
+                                <b><label for="txtdireccion">direccion del Soccio: </label></b>
+                                <h:outputText class="input-group-text" id="direccion"
+                                              value="#{cuentaBean.socio.direccion}" />
+                            </div>
+                            <div >
+                                <b><label for="txtfechaN">Fecha de Nacimento del Soccio: </label></b>
+                                <h:outputText class="input-group-text" id="fechaN"
+                                              value="#{cuentaBean.socio.fechaN}" />
+                            </div>
+                            <div >
+                                <b><label for="txttelefono">telefono del Soccio: </label></b>
+                                <h:outputText class="input-group-text" id="telefono"
+                                              value="#{cuentaBean.socio.telefono}" />
+                            </div>
+
+                            <div >
+                                <b><label for="txtlugarTrabajo">lugar de Trabajo del Soccio: </label></b>
+                                <h:outputText class="input-group-text" id="lugarTrabajo"
+                                              value="#{cuentaBean.socio.lugarTrabajo}" />
+                            </div>
+
+
+
+                            <h1>Crear Cuenta</h1>
+
+
+                            <div >
+                                <b><label for="txttelefono">numero de Cuenta </label></b>
+                                <h:outputText  id="textnumero"  value="#{cuentaBean.numero}"/>
+                            </div>
+                            <div >
+                                <b><label for="textfecha"> fechaApertura </label></b>
+                                <h:outputText  id="textfecha"  value="#{cuentaBean.fechaApertura}"/>
+                            </div>
+
+                            <div >
+                                <b><label for="txttelefono">Tipo de cuenta </label></b>
+                                <p:selectOneMenu id="tipoDeCuenta" value="#{cuentaBean.tipoDeCuenta}" >
+                                    <f:selectItem itemLabel="Selecciona una" itemValue=""/>
+                                    <f:selectItem itemLabel="Ahorros" itemValue="Ahorros"/>
+                                    <f:selectItem itemLabel="Credito" itemValue="Credito"/>
+                                </p:selectOneMenu>
+                            </div>
+
+
+                            <div class="col">
+                                <p:commandButton  style="margin-right: 20px"     value="Guardar" styleClass="ui-button-raised"  action="#{cuentaBean.add}" oncomplete="frmExclos.Clear()"  />   
+                                <p:commandButton value="Cancelar"  styleClass="ui-button-raised ui-button-danger"  type="reset"  update="formulario"/> 
+                            </div>
+                            <div class="col">
+
+                            </div>
+                        </p:panel>
+                    </h:form>
+
+                </div>
+            </div>
+    </h:body>
+</html>

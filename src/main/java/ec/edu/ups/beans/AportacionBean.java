@@ -238,6 +238,7 @@ public class AportacionBean implements Serializable {
         aportacion.setFecha(new Date());
         aportacion.setCuenta(cuenta);
         Persona persona1 = new Persona();
+        System.out.println(cedula);
         persona1.setCedula(cedula);
         persona1.setNombre(nombre);
         persona1.setApellido(apellido);
