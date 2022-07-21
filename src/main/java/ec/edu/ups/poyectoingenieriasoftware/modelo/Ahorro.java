@@ -28,6 +28,8 @@ public class Ahorro  implements Serializable{
     private double valor;
     private char tipoAhorro;
     private Date fecha;
+    private double saldo;
+    
     @ManyToOne
     @JoinColumn(nullable = true )
     private Cuenta cuenta;
@@ -39,19 +41,22 @@ public class Ahorro  implements Serializable{
     public Ahorro() {
     }
 
-    public Ahorro(int id, double valor, char tipoAhorro, Date fecha, Cuenta cuenta) {
+    public Ahorro(int id, double valor, char tipoAhorro, Date fecha,double saldo, Cuenta cuenta) {
         this.id = id;
         this.valor = valor;
         this.tipoAhorro = tipoAhorro;
         this.fecha = fecha;
+        this.saldo=saldo;
         this.cuenta = cuenta;
+        
     }
     
-    public Ahorro(int id, double valor, char tipoAhorro, Date fecha, Cuenta cuenta, Persona persona) {
+    public Ahorro(int id, double valor, char tipoAhorro, Date fecha,double saldo, Cuenta cuenta, Persona persona) {
         this.id = id;
         this.valor = valor;
         this.tipoAhorro = tipoAhorro;
         this.fecha = fecha;
+        this.saldo=saldo;
         this.cuenta = cuenta;
         this.persona = persona;
     }
@@ -105,10 +110,20 @@ public class Ahorro  implements Serializable{
         this.persona = persona;
     }
 
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
     @Override
     public String toString() {
-        return "Ahorro{" + "id=" + id + ", valor=" + valor + ", tipoAhorro=" + tipoAhorro + ", fecha=" + fecha + ", cuenta=" + cuenta + ", persona=" + persona + '}';
+        return "Ahorro{" + "id=" + id + ", valor=" + valor + ", tipoAhorro=" + tipoAhorro + ", fecha=" + fecha + ", saldo=" + saldo + ", cuenta=" + cuenta + ", persona=" + persona + '}';
     }
+
+  
     
     
 }

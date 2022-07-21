@@ -244,6 +244,8 @@ public class AhorroBean implements Serializable {
         ahorro.setValor(valor);
         ahorro.setTipoAhorro('D');
         ahorro.setFecha(new Date());
+        ahorro.setSaldo(cuenta.getMonto()-valor);
+        System.out.println(cuenta.getMonto()-valor);
         ahorro.setCuenta(cuenta);
         Persona persona1 = new Persona();
         persona1.setCedula(cedula);
@@ -264,6 +266,7 @@ public class AhorroBean implements Serializable {
         ahorro.setValor(valor);
         ahorro.setTipoAhorro('R');
         ahorro.setFecha(new Date());
+        ahorro.setSaldo(cuenta.getMonto()-valor);
         ahorro.setCuenta(cuenta);
         ahorroFacade.guardar(ahorro);
         list = ahorroFacade.findAll();
