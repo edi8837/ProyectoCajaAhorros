@@ -36,13 +36,14 @@ public class SolicitudCredito implements Serializable {
     private Socio socio;
     private Cuenta cuenta;
     private char estado;
+    private int meses;
     @OneToMany(mappedBy = "solicitudCredito", cascade = CascadeType.ALL)
     private List<Solicitud> solicitud;
 
     public SolicitudCredito() {
     }
 
-    public SolicitudCredito(int id, double cantidad, Date fechaEmicion, String motivo, String lugarTrabajo, double ingresoMensual, Socio socio, Cuenta cuenta, char estado, List<Solicitud> solicitud) {
+    public SolicitudCredito(int id, double cantidad, Date fechaEmicion, String motivo, String lugarTrabajo, double ingresoMensual, Socio socio, Cuenta cuenta, char estado,int meses, List<Solicitud> solicitud) {
         this.id = id;
         this.cantidad = cantidad;
         this.fechaEmicion = fechaEmicion;
@@ -52,6 +53,7 @@ public class SolicitudCredito implements Serializable {
         this.socio = socio;
         this.cuenta = cuenta;
         this.estado = estado;
+        this.meses = meses;
         this.solicitud = solicitud;
     }
 
@@ -75,6 +77,14 @@ public class SolicitudCredito implements Serializable {
         return fechaEmicion;
     }
 
+    public int getMeses() {
+        return meses;
+    }
+
+    public void setMeses(int meses) {
+        this.meses = meses;
+    }
+    
     public void setFechaEmicion(Date fechaEmicion) {
         this.fechaEmicion = fechaEmicion;
     }

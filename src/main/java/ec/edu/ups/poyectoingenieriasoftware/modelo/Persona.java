@@ -42,8 +42,10 @@ public class Persona implements Serializable {
     private String direccion;
     private Date fechaN;
     private String telefono;
-     @OneToMany(fetch = FetchType.LAZY, mappedBy = "persona", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "persona", cascade = CascadeType.ALL)
     private List<Ahorro> ahorro;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "persona", cascade = CascadeType.ALL)
+    private List<Aportacion> aportaciom;
     @Transient
     private boolean editable;
 
@@ -150,6 +152,14 @@ public class Persona implements Serializable {
 
     public void setAhorro(List<Ahorro> ahorro) {
         this.ahorro = ahorro;
+    }
+
+    public List<Aportacion> getAportaciom() {
+        return aportaciom;
+    }
+
+    public void setAportaciom(List<Aportacion> aportaciom) {
+        this.aportaciom = aportaciom;
     }
     
     

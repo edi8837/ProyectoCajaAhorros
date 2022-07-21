@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "Aportacion")
-public class Aportacion extends Persona implements Serializable {
+public class Aportacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

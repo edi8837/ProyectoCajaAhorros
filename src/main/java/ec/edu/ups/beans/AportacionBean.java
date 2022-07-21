@@ -51,6 +51,7 @@ public class AportacionBean implements Serializable {
     private String apellido;
     private int numeroCuenta;
     private String nombreCuenta;
+    private int reducir;
 
     @PostConstruct//Esto es una notacion de EJB que nos dice que
     public void init() {//este metodo init se va a ejecutar despues 
@@ -116,6 +117,14 @@ public class AportacionBean implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public int getReducir() {
+        return reducir;
+    }
+
+    public void setReducir(int reducir) {
+        this.reducir = reducir;
     }
 
     public char getTipoAhorro() {
@@ -205,7 +214,7 @@ public class AportacionBean implements Serializable {
     public void setNumeroCuenta(int numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
-
+    
     public String getNombreCuenta() {
         return nombreCuenta;
     }
@@ -232,6 +241,8 @@ public class AportacionBean implements Serializable {
     }
 
     public String add() {
+        System.out.println("Entro Aportacion");
+        System.out.println(cedula);
         aportacion = new Aportacion();
         aportacion.setValor(valor);
         aportacion.setTipoAportacion('D');
@@ -252,16 +263,21 @@ public class AportacionBean implements Serializable {
     }
 
     public String addR() {
-        aportacion = new Aportacion();
-        aportacion.setValor(valor);
-        aportacion.setTipoAportacion('R');
-        aportacion.setFecha(new Date());
-        aportacion.setCuenta(cuenta);
-        aportacionFacade.guardar(aportacion);
-        list = aportacionFacade.findAll();
-        reducirMonto();
-        Limpiar();
-        return "Retiro.xhtml?faces-redirect=true";
+        reducir = 5000;
+        System.out.println(aportacion.getValor()+"Hola munodo------");
+        if (aportacion.getValor() <= reducir) {
+            aportacion = new Aportacion();
+            aportacion.setValor(valor);
+            aportacion.setTipoAportacion('R');
+            aportacion.setFecha(new Date());
+            aportacion.setCuenta(cuenta);
+            aportacionFacade.guardar(aportacion);
+            list = aportacionFacade.findAll();
+            reducirMonto();
+            Limpiar();
+            return "Retiro.xhtml?faces-redirect=true";
+        }
+        return "No cumple con el monto necesario";
     }
 
     public void aumentarMonto() {

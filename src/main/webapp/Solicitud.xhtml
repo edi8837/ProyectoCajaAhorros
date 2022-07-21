@@ -27,12 +27,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                             <f:passThroughAttribute name="placeholder" value="Numero"/>            
                         </p:inputText>
                         <p:message for="numero" style="color:red;"/>
-                        <p:commandButton value="Buscar" update=":frmExclos">
+                        <p:commandButton  action="#{solicitudBean.solicitudBusqueda}" value="Buscar" update=":frmExclos" >
                         </p:commandButton>
                         <div >
                             <b><label for="txtNumero">Datos de la Solicitud </label></b>
                             <h:outputText class="input-group-text" id="numeroC"
-                                          />
+                                         value="#{solicitudBean.credito.cuenta.tipoDeCuenta}" />
                         </div>
                     </p:panel>
                 </h:form>
