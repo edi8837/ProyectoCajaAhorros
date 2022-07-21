@@ -235,7 +235,6 @@ public class SolicitudCreditoBean implements Serializable {
     }
 
     public String cuentaBusqueda() {
-        CrearTablaDeA();
         mensaje = "";
         System.out.println(numero);
         for (Cuenta cuenta : listC) {
@@ -251,9 +250,7 @@ public class SolicitudCreditoBean implements Serializable {
     }
 
     public String add() {
-        System.out.println("entra");
-        CrearTablaDeA();
-       /* credito = new SolicitudCredito();
+        credito = new SolicitudCredito();
         credito.setCantidad(cantidad);
         credito.setCuenta(cuenta);
         credito.setFechaEmicion(new Date());
@@ -272,31 +269,8 @@ public class SolicitudCreditoBean implements Serializable {
             return "El numero de la cuenta no le pertenece al cliente";
         }
 //        if (cuenta.getSocio().getCedula().equals(socio.getCedula())) {
-//        }*/
+//        }
         return "El numero de la cuenta no le pertenece al cliente";
-    }
-    public void CrearTablaDeA(){
-        
-        int mesesPLazo=12;
-        double monto=6000;
-        double saldo1=monto;
-        double in=0.7;
-        
-        double coutaCpaital;
-        double nteres;
-         double amort;
-         double saldo;
-        for (int i = 0; i < mesesPLazo; i++) {
-           coutaCpaital=monto/mesesPLazo;
-           
-           nteres=(saldo1*in)/100;
-           amort=coutaCpaital+nteres;
-           saldo=saldo1-coutaCpaital;
-           saldo1=saldo;
-            System.out.println((i+1)+"coutaCpaital"+coutaCpaital+" nteres"+nteres+" amort"+amort+"saldo "+saldo);
-           
-        }
-        
     }
 
     public void limpiar() {
