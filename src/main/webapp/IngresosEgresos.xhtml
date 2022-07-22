@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui"
+       template="/WEB-INF/template.xhtml">
+    <h:head>
+        <title>Ingresos y Egresoso</title>
+    </h:head> 
+    <ui:include src="/menu.xhtml" />
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:growl id="messages"/> 
+            </h:form>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                </div>
+                <p:growl id="mensaje" showDetail="true"/>
+                <h:form id="frmExclos" style="margin:20px;border-style: solid;border-width: 1" >
+                    <p:panel id="form" style="width: auto;margin: 0 auto; ">
+                        <h1>Verificar Ingresos y Egresos</h1>
+                        <p:commandButton action="#{cuentaBean.total}" value="Buscar" update=":frmExclos">
+                        </p:commandButton>
+                        <div >
+                            <b><label for="txtNombrePer">Ingresos </label></b>
+                            <h:outputText class="input-group-text" id="nombre"
+                                          value="#{cuentaBean.montoI}" />
+                        </div>
+                        <div >
+                            <b><label for="txtApellido">Egresos </label></b>
+                            <h:outputText class="input-group-text" id="apellido"
+                                          value="#{cuentaBean.montoR}" />
+                        </div>
+                    </p:panel>
+                </h:form>
+
+            </div>
+        </div>
+    </h:body>
+</html>

@@ -4,8 +4,12 @@
  */
 package ec.edu.ups.beans;
 
+import ec.edu.ups.poyectoingenieriasoftware.controlador.AhorroFacade;
+import ec.edu.ups.poyectoingenieriasoftware.controlador.AportacionFacade;
 import ec.edu.ups.poyectoingenieriasoftware.controlador.CuentaFacade;
 import ec.edu.ups.poyectoingenieriasoftware.controlador.SocioFacade;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Ahorro;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Aportacion;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Cuenta;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Socio;
 import jakarta.annotation.PostConstruct;
@@ -32,9 +36,15 @@ public class CuentaBean implements Serializable {
     private SocioFacade socioFacade;
     @EJB
     private CuentaFacade cuentaFacade;
+    @EJB
+    private AhorroFacade ahorroFacade;
+    @EJB
+    private AportacionFacade aportacionFacade;
 //mando mi fachada
     private List<Cuenta> list = new ArrayList<>();
- private List<Cuenta> listCSocios = new ArrayList<>();// lista de Clientes , se usa el List por el findAll()
+    private List<Cuenta> listCSocios = new ArrayList<>();// lista de Clientes , se usa el List por el findAll()
+    private List<Ahorro> listCAhorro = new ArrayList<>();
+    private List<Aportacion> listCAportacion = new ArrayList<>();
     private int id;
     private String cedula;
     private int numero;
@@ -44,10 +54,14 @@ public class CuentaBean implements Serializable {
     private Socio socio;
     private boolean Estado;
     private double monto;
+    private double montoI;
+    private double montoR;
 
     @PostConstruct//Esto es una notacion de EJB que nos dice que
     public void init() {//este metodo init se va a ejecutar despues 
         this.list = cuentaFacade.findAll();//de que se ha creado o visualizado el JSF o el bean
+        this.listCAhorro = ahorroFacade.findAll();
+        this.listCAportacion = aportacionFacade.findAll();
     }                                  // esto se lo hace ya que puede que no se haya renderizado toda la vista y ya quiera llamar a buscar la info//lo cual puede arrojar un error  
 
     public String add() {
@@ -70,14 +84,15 @@ public class CuentaBean implements Serializable {
         list = cuentaFacade.findAll();
         return null;
     }
-     public void limpiar(){
-         numero=0;
-         fechaApertura=null;
-         tipoDeCuenta="";
-         socio=null;
-         monto =0.00;
-     }
-     
+
+    public void limpiar() {
+        numero = 0;
+        fechaApertura = null;
+        tipoDeCuenta = "";
+        socio = null;
+        monto = 0.00;
+    }
+
     public String edit(Cuenta c) {
         cuentaFacade.edit(c);
         this.list = cuentaFacade.findAll();
@@ -194,14 +209,31 @@ public class CuentaBean implements Serializable {
     public void setListCSocios(List<Cuenta> listCSocios) {
         this.listCSocios = listCSocios;
     }
+
+    public double getMontoI() {
+        return montoI;
+    }
+
+    public void setMontoI(double montoI) {
+        this.montoI = montoI;
+    }
+
+    public double getMontoR() {
+        return montoR;
+    }
+
+    public void setMontoR(double montoR) {
+        this.montoR = montoR;
+    }
     
-    
+    public void total() {
+        ingresos();
+        egresos();
+    }
+
     public void buscarSocio() {
-        
         System.out.println(cedula);
-
         socio = socioFacade.buscarClientePorCedula(cedula);
-
         try {
             if (socio != null) {
                 numero = (int) (1000000 + Math.random() * 90000);
@@ -217,19 +249,66 @@ public class CuentaBean implements Serializable {
         }
 
     }
-    public void buscarPorSocio(){
+
+    public void buscarPorSocio() {
         listCSocios.clear();
         System.out.println("entra");
-        List<Cuenta> cuentas1= cuentaFacade.findAll();
+        List<Cuenta> cuentas1 = cuentaFacade.findAll();
         Socio socio1 = socioFacade.buscarClientePorCedula(cedula);
-         for (int i = 0; i < cuentas1.size(); i++) {
-                Cuenta c = cuentas1.get(i);
-                if (c.getSocio().getId()== socio1.getId()) {
-                    listCSocios.add(c);
-                 
-             }
-         }
-         System.out.println(listCSocios);
- 
+        for (int i = 0; i < cuentas1.size(); i++) {
+            Cuenta c = cuentas1.get(i);
+            if (c.getSocio().getId() == socio1.getId()) {
+                listCSocios.add(c);
+            }
+        }
+        System.out.println(listCSocios);
+    }
+
+    public void ingresos() {
+        //double mon = 0;
+        double ingresoMonto = 0;
+        // double t =0;
+        for (Ahorro ahorro : listCAhorro) {
+            //System.out.println("Ingreso");
+            if (ahorro.getTipoAhorro() == 'D') {
+                //System.out.println("Ingreso");
+                ingresoMonto = ahorro.getValor();
+                //System.out.println(ingresoMonto);
+                montoI = montoI + ingresoMonto;
+            }
+        }
+        for (Aportacion aportacion : listCAportacion) {
+            if (aportacion.getTipoAportacion() == 'D') {
+                //System.out.println("Ingreso");
+                ingresoMonto = aportacion.getValor();
+                //System.out.println(ingresoMonto);
+                montoI = montoI + ingresoMonto;
+            }
+        }
+        System.out.println(montoI + "Hola mundo");
+    }
+
+    public void egresos() {
+        //double mon = 0;
+        double ingresoMonto = 0;
+        // double t =0;
+        for (Ahorro ahorro : listCAhorro) {
+            //System.out.println("Ingreso");
+            if (ahorro.getTipoAhorro() == 'R') {
+                //System.out.println("Ingreso");
+                ingresoMonto = ahorro.getValor();
+                //System.out.println(ingresoMonto);
+                montoR = montoR + ingresoMonto;
+            }
+        }
+        for (Aportacion aportacion : listCAportacion) {
+            if (aportacion.getTipoAportacion() == 'R') {
+                //System.out.println("Ingreso");
+                ingresoMonto = aportacion.getValor();
+                //System.out.println(ingresoMonto);
+                montoR = montoR + ingresoMonto;
+            }
+        }
+        System.out.println(montoR + "Hola mundo");
     }
 }

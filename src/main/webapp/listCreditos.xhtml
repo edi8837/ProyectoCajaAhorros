@@ -13,34 +13,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Lista de Socios</title>
     </h:head> 
-
+    <ui:include src="/menu.xhtml" />
     <h:body>
         <div class="card">
             <h:form>
                 <p:growl id="messages"/>
-
-                <p:menubar >
-                    <p:submenu label="Cliente" icon="pi pi-user">
-                        <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
-                        <p:divider />
-                        <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
-                        <p:divider />
-                    </p:submenu>
-
-                    <p:submenu label="Cuenta" icon="pi pi-user">
-                        <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
-                        <p:divider />
-                        <p:menuitem value="listarCuentas" icon="pi pi-fw pi-trash"  url="listCuenta.xhtml"/>
-                        <p:divider />
-                        <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
-                        <p:divider />
-                    </p:submenu> 
-
-                    <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
-                    <p:divider layout="vertical"/>
-
-                </p:menubar>
-
             </h:form>
         </div>
         <div class="card">
@@ -48,9 +25,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <h:form id="frmExclos">
                 <p:growl  id="mensajeGeneral3" sticky="false" showDetail="true"/>   
                 <p:dataTable id="products" var="a" value="#{solicitudBean.listarCreditos}" editable="true" styleClass="tabla">
-
-
-
                     <f:facet name="header">
                         <div class="p-d-flex p-jc-between p-ai-center">
                             <h1>Lista de Socios</h1>
@@ -104,8 +78,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:column headerText="Tabla de Amotizacion">
                         <p:commandButton value="Tabla de Amotizacion" action="#{solicitudBean.verTabla(a.id)}"  styleClass="ui-button-raised ui-button-danger"/>
                     </p:column>
-                    <p:column headerText="Tabla de Amotizacion">
-                        <p:commandButton value="Tabla de Amotizacion" action="#{solicitudBean.registroP(a.id)}"  styleClass="ui-button-raised ui-button-danger"/>
+                    <p:column headerText="Registro de Pagos">
+                        <p:commandButton value="Registro de Pagos" action="#{solicitudBean.registroP(a.id)}"  styleClass="ui-button-raised ui-button-danger"/>
                     </p:column>
 
                 </p:dataTable>

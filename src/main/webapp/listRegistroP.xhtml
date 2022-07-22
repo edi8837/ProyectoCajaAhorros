@@ -13,48 +13,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Lista de Socios</title>
     </h:head> 
-
+    <ui:include src="/menu.xhtml" />
     <h:body>
         <div class="card">
             <h:form>
                 <p:growl id="messages"/>
-
-                <p:menubar >
-                    <p:submenu label="Cliente" icon="pi pi-user">
-                        <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
-                        <p:divider />
-                        <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
-                        <p:divider />
-                    </p:submenu>
-
-                    <p:submenu label="Cuenta" icon="pi pi-user">
-                        <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
-                        <p:divider />
-                        <p:menuitem value="listarCuentas" icon="pi pi-fw pi-trash"  url="listCuenta.xhtml"/>
-                        <p:divider />
-                        <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
-                        <p:divider />
-                    </p:submenu> 
-
-                    <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
-                    <p:divider layout="vertical"/>
-
-                </p:menubar>
-
             </h:form>
         </div>
         <div class="card">
-            ;
             <h:form id="frmExclos1" style="margin:20px;border-style: solid" >
                 <p:panel id="form" style="width: auto;margin: 0 auto; ">
-
-
-
-
                     <p:dataTable id="products" var="a" value="#{solicitudBean.registros1}" editable="true" styleClass="tabla">
-
-
-
                         <p:column headerText="ID">
                             <f:facet name="header">Id</f:facet>#{a.id}
                         </p:column>
@@ -76,10 +45,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:column headerText="Pagar">
                         <p:commandButton value="Pagar" action="#{solicitudBean.pagarC(a.id)}"  styleClass="ui-button-raised ui-button-danger"/>
                         </p:column>
-
                     </p:dataTable>
                 </p:panel>
-
                 <p:commandButton action="listCreditos.xhtml" value="volver" styleClass="ui-button-raised ui-button-danger"/>
             </h:form>
         </div>
