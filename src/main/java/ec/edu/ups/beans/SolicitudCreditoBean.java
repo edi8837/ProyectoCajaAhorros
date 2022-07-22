@@ -49,6 +49,7 @@ public class SolicitudCreditoBean implements Serializable {
     private double ingresM;
     private Socio socio;
     private Cuenta cuenta;
+    private int meses;
     private String mensaje;
     private String numeroCedula;
 
@@ -111,6 +112,14 @@ public class SolicitudCreditoBean implements Serializable {
         return fechaE;
     }
 
+    public int getMeses() {
+        return meses;
+    }
+
+    public void setMeses(int meses) {
+        this.meses = meses;
+    }
+    
     public void setFechaE(Date fechaE) {
         this.fechaE = fechaE;
     }
@@ -229,7 +238,6 @@ public class SolicitudCreditoBean implements Serializable {
                 numeroCedula = socio.getCedula();
                 this.socio = socio;
             }
-
         }
         return null;
     }
@@ -258,6 +266,7 @@ public class SolicitudCreditoBean implements Serializable {
         credito.setLugarTrabajo(lugarT);
         credito.setMotivo(motivo);
         credito.setSocio(socio);
+        credito.setMeses(meses);
         if (socio != null && cuenta != null) {
             if (socio.getCedula().equals(cuenta.getSocio().getCedula())) {
                 credito.setEstado('E');
@@ -280,5 +289,6 @@ public class SolicitudCreditoBean implements Serializable {
         this.lugarT = "";
         this.motivo = "";
         this.numero = 0;
+        this.meses = 0;
     }
 }

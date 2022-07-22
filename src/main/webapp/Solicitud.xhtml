@@ -23,32 +23,57 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:form id="frmExclos" style="margin:20px;border-style: solid;border-width: 1" >
                     <p:panel id="form" style="width: auto;margin: 0 auto; ">
                         <h1>Numero de solicitud</h1>
-                        <p:inputText id="numero" p:placeholder="Numero" class="form-control" required="true">
+                        <p:inputText id="numero" value="#{solicitudBean.numero}" p:placeholder="Numero" class="form-control" required="true">
                             <f:passThroughAttribute name="placeholder" value="Numero"/>            
                         </p:inputText>
                         <p:message for="numero" style="color:red;"/>
-                        <p:commandButton value="Buscar" update=":frmExclos">
+                        <p:commandButton  action="#{solicitudBean.solicitudBusqueda}" value="Buscar" update=":frmExclos" >
                         </p:commandButton>
+                        
                         <div >
                             <b><label for="txtNumero">Datos de la Solicitud </label></b>
-                            <h:outputText class="input-group-text" id="numeroC"
-                                          />
+                             <f:facet name="header">cantidad</f:facet> #{solicitudBean.cantidad}
+                             
                         </div>
+                        <div >
+                            <b><label for="txtNumero">Num de cuenta</label></b>
+                            <f:facet name="header">Num de cuenta </f:facet> #{solicitudBean.credito.cuenta.numero}
+                             
+                        </div>
+                        <div >
+                            <b><label for="txtNumero">nombre </label></b>
+                             <f:facet name="header">nombre</f:facet> #{solicitudBean.credito.cuenta.socio.nombre}  
+                             
+                        </div>
+                        <div >
+                            <b><label for="txtNumero">Motivo </label></b>
+                             <f:facet name="header">cantidad</f:facet> #{solicitudBean.credito.motivo}
+                             
+                        </div>
+                        
+                             
+                             
                     </p:panel>
                 </h:form>
                 <h:form id="frmColaborador" style="margin:20px;border-style: solid;border-width: 1" >
                     <p:panel id="form" style="width: auto;margin: 0 auto; ">
                         <h1>Cedula del Colaborador</h1>
-                        <p:inputText id="numero" p:placeholder="Numero" class="form-control" required="true">
+                        <p:inputText id="numero" value="#{solicitudBean.cedula}" p:placeholder="Numero" class="form-control" required="true">
                             <f:passThroughAttribute name="placeholder" value="Numero"/>            
                         </p:inputText>
                         <p:message for="numero" style="color:red;"/>
-                        <p:commandButton value="Buscar" update=":frmExclos">
+                        
+                        <p:commandButton action="#{solicitudBean.buscarColaborador}" value="Buscar" update=":frmExclos">
                         </p:commandButton>
+                         <div >
+                            <b><label for="txtNumero">Datos del colaborador </label></b>
+                             <f:facet name="header">Colaborador</f:facet> #{solicitudBean.colaborador.cedula}
+                             
+                        </div>
                         <div >
-                            <b><label for="txtNumero">Datos del Colaborador</label></b>
-                            <h:outputText class="input-group-text" id="numeroC"
-                                          />
+                            <b><label for="txtNumero">Num de cuenta</label></b>
+                            <f:facet name="header">Num de cuenta </f:facet> #{solicitudBean.colaborador.nombre}
+                             
                         </div>
                     </p:panel>
                 </h:form>
@@ -59,7 +84,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                             <div class="ui-fluid p-formgrid p-grid">
                                 <div class="p-field p-col-12 p-md-4">
                                     <p:outputLabel for="rol" value="Aprovacion de Solicitud"/>
-                                    <p:selectOneMenu id="rol" value="#{colaboradorBean.rol}">
+                                    <p:selectOneMenu id="rol" value="#{solicitudBean.estado}">
                                         <f:selectItem itemLabel="Selecciona una" itemValue=""/>
                                         <f:selectItem itemLabel="Rechazada" itemValue="R"/>
                                         <f:selectItem itemLabel="Aprovada" itemValue="A"/>
@@ -72,7 +97,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 <div class="col">
                                 </div>
                                 <div class="col">
-                                    <p:commandButton  style="margin-right: 20px"   value="Guardar" styleClass="ui-button-raised"  action="#{ahorroBean.add}" />   
+                                    <p:commandButton  style="margin-right: 20px"   value="Guardar" 
+                                                      styleClass="ui-button-raised"  action="#{solicitudBean.add(solicitudBean.colaborador.id,solicitudBean.credito.id)}" />   
                                 </div>
                                 <div class="col">
                                 </div>

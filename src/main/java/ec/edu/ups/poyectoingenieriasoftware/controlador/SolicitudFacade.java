@@ -4,6 +4,7 @@
  */
 package ec.edu.ups.poyectoingenieriasoftware.controlador;
 
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Aportacion;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Solicitud;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -21,6 +22,9 @@ public class SolicitudFacade extends AbstractFacade<Solicitud>{
 
     public SolicitudFacade() {
         super(Solicitud.class);
+    }
+    public void guardar(Solicitud solicitud) {
+        em.merge(solicitud);
     }
 
     @Override
