@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui"
+       template="/WEB-INF/template.xhtml">
+    <h:head>
+        <title>Lista de Socios</title>
+    </h:head> 
+
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:growl id="messages"/>
+
+                <p:menubar >
+                    <p:submenu label="Cliente" icon="pi pi-user">
+                        <p:menuitem  value="Nuevo Socio" icon="pi pi-fw pi-plus"  url="Socio.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Listar Socios" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
+                        <p:divider />
+                    </p:submenu>
+
+                    <p:submenu label="Cuenta" icon="pi pi-user">
+                        <p:menuitem  value="Crear Cuenta" icon="pi pi-fw pi-plus"  url="buscarSocio.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="listarCuentas" icon="pi pi-fw pi-trash"  url="listCuenta.xhtml"/>
+                        <p:divider />
+                        <p:menuitem value="Cuentas" icon="pi pi-fw pi-trash"  url="listSocio.xhtml"/>
+                        <p:divider />
+                    </p:submenu> 
+
+                    <p:menuitem value="Salir" actionListener="#{menuDinamico.cerrarSesion}" url="../loginDemo.xhtml" icon="pi pi-fw pi-power-off" />
+                    <p:divider layout="vertical"/>
+
+                </p:menubar>
+
+            </h:form>
+        </div>
+        <div class="card">
+            <h:form id="frmExclos">
+                <h1>Libro Diario</h1>
+                <h2>Tranfrencias</h2>
+                <p:dataTable id="products" var="a" value="#{ahorroBean.listaAhorros1}" editable="true" styleClass="tabla">
+                   
+                    <p:column headerText="ID">
+                        <f:facet name="header">Id</f:facet>#{a.id}
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <f:facet name="output">fecha</f:facet>#{a.fecha}
+                    </p:column>
+                    <p:column headerText="tipo De Operaccion"> 
+                        <f:facet name="tipoAhorro">tipoAhorro</f:facet> #{a.tipoAhorro}
+                    </p:column>
+                    <p:column headerText="MontoS">
+                        <f:facet name="valor">valor</f:facet> #{a.valor}
+                    </p:column>
+                    <p:column headerText="saldo">
+                        <f:facet name="saldo">saldo</f:facet>#{a.saldo}
+                    </p:column>
+
+
+
+
+                </p:dataTable>
+                <p:commandButton action="listCuentasPorCedula.xhtml" value="volver" styleClass="ui-button-raised ui-button-danger"/>
+            </h:form>
+        </div>
+    </h:body>
+
+</html>

@@ -33,4 +33,9 @@ public class RegistroFacade extends AbstractFacade<Registro> {
     protected EntityManager getEntityManager() {
         return em;
     }
+     public Registro porId(int id) {
+        return em.createQuery("select p from Registro p  where p.id=:id", Registro.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 }

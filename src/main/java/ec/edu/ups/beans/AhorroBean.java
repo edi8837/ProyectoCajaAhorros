@@ -37,6 +37,7 @@ public class AhorroBean implements Serializable {
     private List<Ahorro> list = new ArrayList<>();
     private List<Cuenta> listaCuenta = new ArrayList<>();
     private List<Ahorro> listaAhorros = new ArrayList<>();
+    private List<Ahorro> listaAhorros1 = new ArrayList<>();
     private int id;
     private double valor;
     private char tipoAhorro;
@@ -56,6 +57,7 @@ public class AhorroBean implements Serializable {
     public void init() {//este metodo init se va a ejecutar despues 
         this.list = ahorroFacade.findAll();//de que se ha creado o visualizado el JSF o el bean
         this.listaCuenta = cuentaFacade.findAll();
+        this.listaAhorros1=ahorroFacade.findAll();
     }
 
     public String delete(Ahorro a) {
@@ -84,6 +86,14 @@ public class AhorroBean implements Serializable {
 
     public void setAhorroFacade(AhorroFacade ahorroFacade) {
         this.ahorroFacade = ahorroFacade;
+    }
+
+    public List<Ahorro> getListaAhorros1() {
+        return listaAhorros1;
+    }
+
+    public void setListaAhorros1(List<Ahorro> listaAhorros1) {
+        this.listaAhorros1 = listaAhorros1;
     }
 
     public List<Ahorro> getList() {

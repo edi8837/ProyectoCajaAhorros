@@ -74,6 +74,7 @@ public class SolicitudBean implements Serializable {
     private Socio socio;
     private Cuenta cuenta;
     private int meses;
+    private int idp;
     private Colaborador colaborador;
     private String mensaje;
     private String numeroCedula;
@@ -354,6 +355,14 @@ public class SolicitudBean implements Serializable {
         this.credito1 = credito1;
     }
 
+    public int getIdp() {
+        return idp;
+    }
+
+    public void setIdp(int idp) {
+        this.idp = idp;
+    }
+
     public String solicitudBusqueda() {
         mensaje = "";
         System.out.println(numero);
@@ -489,7 +498,7 @@ public class SolicitudBean implements Serializable {
         registros1.clear();
 
         System.out.println("entra");
-        List<Registro> registros2 =registroFacade.findAll();
+        List<Registro> registros2 = registroFacade.findAll();
 
         for (int i = 0; i < registros2.size(); i++) {
             Registro a = registros2.get(i);
@@ -501,6 +510,57 @@ public class SolicitudBean implements Serializable {
         }
         System.out.println(registros1);
         return "listRegistro.xhtml?faces-redirect=true";
+    }
+
+    public String registroP(int id) {
+        registros1.clear();
+        idp = id;
+        System.out.println("entra");
+        List<Registro> registros2 = registroFacade.findAll();
+
+        for (int i = 0; i < registros2.size(); i++) {
+            Registro a = registros2.get(i);
+
+            if (a.getCredito().getId() == id) {
+                registros1.add(a);
+
+            }
+        }
+        System.out.println(registros1);
+        return "listRegistroP.xhtml?faces-redirect=true";
+    }
+
+    public String pagarC(int id) {
+        registros1.clear();
+        Registro registroE = registroFacade.porId(id);
+         List<Registro> registros2 = registroFacade.findAll();
+        if (registroE.getEstado().equals("PAGADO")) {
+            for (int i = 0; i < registros2.size(); i++) {
+                Registro a = registros2.get(i);
+
+                if (a.getCredito().getId() == idp) {
+                    registros1.add(a);
+
+                }
+            }
+          
+        } else if(!registroE.getEstado().equals("PAGADO")) {
+            registroE.setEstado("PAGADO");
+            registroFacade.edit(registroE);
+            System.out.println("entra");
+            for (int i = 0; i < registros2.size(); i++) {
+                Registro a = registros2.get(i);
+
+                if (a.getCredito().getId() == idp) {
+                    registros1.add(a);
+
+                }
+            }
+              System.out.println(registros1);
+
+        }
+
+        return "listRegistroP.xhtml?faces-redirect=true";
     }
 
 }
