@@ -34,9 +34,9 @@ public class Registro implements Serializable {
     private double saldo;
     private String estado;
 
-    @OneToOne
-    @JoinColumn(nullable = true)
-    private Credito credito;
+    @ManyToOne
+   @JoinColumn
+   private Credito credito;
 
     public Registro() {
     }

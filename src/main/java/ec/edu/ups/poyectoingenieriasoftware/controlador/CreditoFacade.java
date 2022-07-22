@@ -5,6 +5,7 @@
 package ec.edu.ups.poyectoingenieriasoftware.controlador;
 
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Credito;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Solicitud;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.SolicitudCredito;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -28,4 +29,13 @@ public class CreditoFacade extends AbstractFacade<Credito> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    public void guardar(Credito credito) {
+        em.merge(credito);
+    }  
+    public Credito porId(int id) {
+        return em.createQuery("select p from Credito p  where p.id=:id", Credito.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 }

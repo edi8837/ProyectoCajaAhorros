@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -37,13 +38,13 @@ public class SolicitudCredito implements Serializable {
     private Cuenta cuenta;
     private char estado;
     private int meses;
-    @OneToMany(mappedBy = "solicitudCredito", cascade = CascadeType.ALL)
-    private List<Solicitud> solicitud;
+    @OneToOne(mappedBy = "solicitudCredito", cascade = CascadeType.ALL)
+    private Solicitud solicitud;
 
     public SolicitudCredito() {
     }
 
-    public SolicitudCredito(int id, double cantidad, Date fechaEmicion, String motivo, String lugarTrabajo, double ingresoMensual, Socio socio, Cuenta cuenta, char estado,int meses, List<Solicitud> solicitud) {
+    public SolicitudCredito(int id, double cantidad, Date fechaEmicion, String motivo, String lugarTrabajo, double ingresoMensual, Socio socio, Cuenta cuenta, char estado, int meses, Solicitud solicitud) {
         this.id = id;
         this.cantidad = cantidad;
         this.fechaEmicion = fechaEmicion;
@@ -56,6 +57,8 @@ public class SolicitudCredito implements Serializable {
         this.meses = meses;
         this.solicitud = solicitud;
     }
+
+   
 
     public int getId() {
         return id;
@@ -129,14 +132,7 @@ public class SolicitudCredito implements Serializable {
         this.cuenta = cuenta;
     }
 
-    public List<Solicitud> getSolicitud() {
-        return solicitud;
-    }
-
-    public void setSolicitud(List<Solicitud> solicitud) {
-        this.solicitud = solicitud;
-    }
-
+  
     public char getEstado() {
         return estado;
     }
@@ -145,9 +141,19 @@ public class SolicitudCredito implements Serializable {
         this.estado = estado;
     }
 
+    public Solicitud getSolicitud() {
+        return solicitud;
+    }
+
+    public void setSolicitud(Solicitud solicitud) {
+        this.solicitud = solicitud;
+    }
+
     @Override
     public String toString() {
-        return "SolicitudCredito{" + "id=" + id + ", cantidad=" + cantidad + ", fechaEmicion=" + fechaEmicion + ", motivo=" + motivo + ", lugarTrabajo=" + lugarTrabajo + ", ingresoMensual=" + ingresoMensual + ", socio=" + socio + ", cuenta=" + cuenta + ", estado=" + estado + ", solicitud=" + solicitud + '}';
+        return "SolicitudCredito{" + "id=" + id + ", cantidad=" + cantidad + ", fechaEmicion=" + fechaEmicion + ", motivo=" + motivo + ", lugarTrabajo=" + lugarTrabajo + ", ingresoMensual=" + ingresoMensual + ", socio=" + socio + ", cuenta=" + cuenta + ", estado=" + estado + ", meses=" + meses + '}';
     }
+
+    
 
 }

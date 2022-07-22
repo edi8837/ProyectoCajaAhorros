@@ -31,4 +31,9 @@ public class SolicitudFacade extends AbstractFacade<Solicitud>{
     protected EntityManager getEntityManager() {
         return em;
     }
+    public Solicitud porId(int id) {
+        return em.createQuery("select p from Solicitud p  where p.id=:id", Solicitud.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 }

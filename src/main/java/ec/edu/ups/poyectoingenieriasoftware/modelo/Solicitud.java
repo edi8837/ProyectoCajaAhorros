@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 
@@ -30,7 +32,7 @@ public class Solicitud implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = true)
     private Colaborador colaborador;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = true)
     private SolicitudCredito solicitudCredito;
 
@@ -69,7 +71,7 @@ public class Solicitud implements Serializable {
     
     @Override
     public String toString() {
-        return "Solicitud{" + "id=" + id + ", estadoAportacion=" + estadoAportacion + ", colaborador=" + colaborador + ", solicitudCredito=" + solicitudCredito + '}';
+        return "Solicitud{" + "id=" + id + ", estadoAportacion=" + estadoAportacion + ", colaborador=" + colaborador + '}';
     }
 
     

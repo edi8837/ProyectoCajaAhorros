@@ -5,13 +5,17 @@
 package ec.edu.ups.beans;
 
 import ec.edu.ups.poyectoingenieriasoftware.controlador.ColaboradorFacade;
+import ec.edu.ups.poyectoingenieriasoftware.controlador.CreditoFacade;
 import ec.edu.ups.poyectoingenieriasoftware.controlador.CuentaFacade;
+import ec.edu.ups.poyectoingenieriasoftware.controlador.RegistroFacade;
 import ec.edu.ups.poyectoingenieriasoftware.controlador.SocioFacade;
 import ec.edu.ups.poyectoingenieriasoftware.controlador.SolicitudCreditoFacade;
 import ec.edu.ups.poyectoingenieriasoftware.controlador.SolicitudFacade;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Ahorro;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Colaborador;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Credito;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Cuenta;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Registro;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Socio;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Solicitud;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.SolicitudCredito;
@@ -43,13 +47,21 @@ public class SolicitudBean implements Serializable {
     @EJB
     private CuentaFacade cuentaFacade;
     @EJB
+    private CreditoFacade creditoFacade1;
+    @EJB
+    private RegistroFacade registroFacade;
+    @EJB
     private SocioFacade socioFacade;
     private List<Solicitud> listSo = new ArrayList<>();
     private List<SolicitudCredito> list = new ArrayList<>();// lista de Clientes , se usa el List por el findAll()
     private List<Cuenta> listC = new ArrayList<>();// lista de Clientes , se usa el List por el findAll()
     private List<Socio> listS = new ArrayList<>();
     private List<Colaborador> listc = new ArrayList<>();
+    private List<Credito> listarCreditos = new ArrayList<>();
+    private List<Registro> registros = new ArrayList<>();
+    private List<Registro> registros1 = new ArrayList<>();
     private SolicitudCredito credito;
+    private Credito credito1;
     private Solicitud solicitud;
     private double cantidad;
     private Date fechaE;
@@ -73,6 +85,9 @@ public class SolicitudBean implements Serializable {
         this.listC = cuentaFacade.findAll();
         this.listS = socioFacade.findAll();
         this.listc = colaboradorFacade.findAll();
+        this.solicitud = new Solicitud();
+        this.listarCreditos = creditoFacade1.findAll();
+        this.registros = registroFacade.findAll();
     }
 
     public int getId() {
@@ -290,71 +305,202 @@ public class SolicitudBean implements Serializable {
     public void setColaborador(Colaborador colaborador) {
         this.colaborador = colaborador;
     }
-    
+
+    public CreditoFacade getCreditoFacade1() {
+        return creditoFacade1;
+    }
+
+    public void setCreditoFacade1(CreditoFacade creditoFacade1) {
+        this.creditoFacade1 = creditoFacade1;
+    }
+
+    public RegistroFacade getRegistroFacade() {
+        return registroFacade;
+    }
+
+    public void setRegistroFacade(RegistroFacade registroFacade) {
+        this.registroFacade = registroFacade;
+    }
+
+    public List<Credito> getListarCreditos() {
+        return listarCreditos;
+    }
+
+    public void setListarCreditos(List<Credito> listarCreditos) {
+        this.listarCreditos = listarCreditos;
+    }
+
+    public List<Registro> getRegistros() {
+        return registros;
+    }
+
+    public void setRegistros(List<Registro> registros) {
+        this.registros = registros;
+    }
+
+    public List<Registro> getRegistros1() {
+        return registros1;
+    }
+
+    public void setRegistros1(List<Registro> registros1) {
+        this.registros1 = registros1;
+    }
+
+    public Credito getCredito1() {
+        return credito1;
+    }
+
+    public void setCredito1(Credito credito1) {
+        this.credito1 = credito1;
+    }
 
     public String solicitudBusqueda() {
         mensaje = "";
         System.out.println(numero);
         System.out.println("Hola");
         for (int i = 0; i < list.size(); i++) {
-         
+
             SolicitudCredito a = list.get(i);
 
-             if (numero == a.getId()) {
+            if (numero == a.getId()) {
                 credito = a;
-              
-                cantidad=credito.getCantidad();
-                  System.out.println("entra");
-                cedula=credito.getCuenta().getSocio().getNombre();
-                
+
+                cantidad = credito.getCantidad();
+                System.out.println("entra");
+                cedula = credito.getCuenta().getSocio().getNombre();
+
                 //System.out.println(credito);
             }
         }
-           
-        
-        
-            
+
         return null;
     }
+
     public String buscarColaborador() {
         mensaje = "";
         System.out.println(cedula);
         System.out.println("Hola");
         for (int i = 0; i < listc.size(); i++) {
-         
+
             Colaborador c = listc.get(i);
 
-             if (cedula.equals(c.getCedula())) {
-           
-              
-                colaborador=c;
-                 
-                 System.out.println(colaborador);
-                
+            if (cedula.equals(c.getCedula())) {
+
+                colaborador = c;
+
+                System.out.println(colaborador);
+
                 //System.out.println(credito);
             }
         }
-           
-        
-        
-            
+
         return null;
     }
-    public String add(int idc ,int id ) {
+
+    public String add(int idc, int id) {
         System.out.println(estado);
-        Solicitud solicitud1 = new Solicitud();
+        //Solicitud solicitud1 = new Solicitud();
         System.out.println(colaborador);
-        solicitud1.setColaborador(colaborador);
-        solicitud1.setEstadoAportacion(estado);
-        solicitud1.setSolicitudCredito(credito);
-        solicitudFacade.guardar(solicitud1);
+        solicitud.setColaborador(colaborador);
+        solicitud.setEstadoAportacion(estado);
+        solicitud.setSolicitudCredito(credito);
+        solicitudFacade.guardar(solicitud);
+        crerCrecito();
         //System.out.println(credito);
         //System.out.println(solicitud1);
         //solicitudFacade.create(solicitud);
-        
+
 //        if (cuenta.getSocio().getCedula().equals(socio.getCedula())) {
 //        }
         return "El numero de la cuenta no le pertenece al cliente";
+    }
+
+    public void crerCrecito() {
+        listarCreditos = creditoFacade1.findAll();
+        System.out.println("entra1");
+        System.out.println(solicitud);
+        SolicitudCredito solicitudCredito = creditoFacade.porId(credito.getId());
+        if (solicitudCredito.getEstado() == 'A') {
+            System.out.println("el pedido ya esta en estado Aceptado");
+
+        } else if ('A' != credito.getEstado()) {
+            credito.setEstado('A');
+            creditoFacade.edit(credito);
+            Credito credito1 = new Credito();
+            credito1.setId(listarCreditos.size() + 1);
+            credito1.setCantidad(credito.getCantidad());
+            credito1.setCuenta(credito.getCuenta());
+            credito1.setFecha(new Date());
+            credito1.setEstadoCredito('A');
+            credito1.setNum(credito.getMeses());
+            credito1.setSolicitudCredito(credito);
+
+            creditoFacade1.guardar(credito1);
+            CrearTablaDeA(credito1.getNum(), credito1.getCantidad(), credito1.getId());
+
+        }
+        listarCreditos = creditoFacade1.findAll();
+
+    }
+
+    public void CrearTablaDeA(int mesesPlazo, double credito2, int idc) {
+        System.out.println(idc);
+        registros1.clear();
+        int mesesPLazo = mesesPlazo;
+        double monto = credito2;
+        double saldo1 = monto;
+        double in = 0.7;
+
+        double coutaCpaital;
+        double nteres;
+        double amort;
+        double saldo;
+        System.out.println("llega");
+        credito1 = creditoFacade1.porId(idc);
+        System.out.println(credito1);
+        for (int i = 0; i < mesesPLazo; i++) {
+            coutaCpaital = monto / mesesPLazo;
+
+            nteres = (saldo1 * in) / 100;
+            amort = coutaCpaital + nteres;
+            saldo = saldo1 - coutaCpaital;
+            saldo1 = saldo;
+
+            Registro registro = new Registro();
+            registro.setCotaCapital(coutaCpaital);
+            registro.setEstado("NOCANCELADO");
+            registro.setInteres(nteres);
+            registro.setAmortizacion(amort);
+            registro.setSaldo(saldo);
+
+            registro.setCredito(credito1);
+            registroFacade.guardar(registro);
+
+            System.out.println((i + 1) + "coutaCpaital" + coutaCpaital + " nteres" + nteres + " amort" + amort + "saldo " + saldo);
+
+        }
+
+        registros = registroFacade.findAll();
+
+    }
+
+    public String verTabla(int id) {
+        credito1 = creditoFacade1.porId(id);
+        registros1.clear();
+
+        System.out.println("entra");
+        List<Registro> registros2 =registroFacade.findAll();
+
+        for (int i = 0; i < registros2.size(); i++) {
+            Registro a = registros2.get(i);
+
+            if (a.getCredito().getId() == id) {
+                registros1.add(a);
+
+            }
+        }
+        System.out.println(registros1);
+        return "listRegistro.xhtml?faces-redirect=true";
     }
 
 }

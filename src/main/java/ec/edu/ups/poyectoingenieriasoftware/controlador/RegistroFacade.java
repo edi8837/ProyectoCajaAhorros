@@ -6,6 +6,7 @@ package ec.edu.ups.poyectoingenieriasoftware.controlador;
 
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Credito;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.Registro;
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Solicitud;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.SolicitudCredito;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -23,6 +24,9 @@ public class RegistroFacade extends AbstractFacade<Registro> {
 
     public RegistroFacade() {
         super(Registro.class);
+    }
+    public void guardar(Registro registro) {
+        em.merge(registro);
     }
 
     @Override

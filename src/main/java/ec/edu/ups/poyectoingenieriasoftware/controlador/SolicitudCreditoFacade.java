@@ -4,6 +4,7 @@
  */
 package ec.edu.ups.poyectoingenieriasoftware.controlador;
 
+import ec.edu.ups.poyectoingenieriasoftware.modelo.Solicitud;
 import ec.edu.ups.poyectoingenieriasoftware.modelo.SolicitudCredito;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -21,6 +22,12 @@ public class SolicitudCreditoFacade extends AbstractFacade<SolicitudCredito> {
 
     public SolicitudCreditoFacade() {
         super(SolicitudCredito.class);
+    }
+
+    public SolicitudCredito porId(int id) {
+        return em.createQuery("select p from SolicitudCredito p  where p.id=:id", SolicitudCredito.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
