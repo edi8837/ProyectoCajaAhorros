@@ -63,7 +63,7 @@ public class SolicitudCreditoBean implements Serializable {
     public int getId() {
         return id;
     }
-
+//hooa
     public void setId(int id) {
         this.id = id;
     }
