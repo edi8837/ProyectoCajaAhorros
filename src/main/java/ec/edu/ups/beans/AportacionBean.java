@@ -252,16 +252,30 @@ public class AportacionBean implements Serializable {
     }
 
     public String addR() {
-        aportacion = new Aportacion();
-        aportacion.setValor(valor);
-        aportacion.setTipoAportacion('R');
-        aportacion.setFecha(new Date());
-        aportacion.setCuenta(cuenta);
-        aportacionFacade.guardar(aportacion);
-        list = aportacionFacade.findAll();
-        reducirMonto();
-        Limpiar();
-        return "Retiro.xhtml?faces-redirect=true";
+        int valorR = 5000;
+        System.out.println("Hola mundo");
+        for (Aportacion aportacion : list) {
+            System.out.println("Entro");
+            if (numero == aportacion.getCuenta().getNumero()) {
+                mensaje = "Cuenta Encontrada";
+                if (aportacion.getValor() >= valorR) {
+                    System.out.println("Si cumple");
+                    aportacion = new Aportacion();
+                    aportacion.setValor(valor);
+                    aportacion.setTipoAportacion('R');
+                    aportacion.setFecha(new Date());
+                    aportacion.setCuenta(cuenta);
+                    aportacionFacade.guardar(aportacion);
+                    list = aportacionFacade.findAll();
+                    reducirMonto();
+                    Limpiar();
+                    return "Retiro.xhtml?faces-redirect=true";
+                }
+                System.out.println("No cumple");
+            }
+            System.out.println("No entro");
+        }
+        return "Hola 4545644545";
     }
 
     public void aumentarMonto() {

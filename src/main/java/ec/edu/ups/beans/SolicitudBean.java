@@ -347,6 +347,7 @@ public class SolicitudBean implements Serializable {
         solicitud1.setColaborador(colaborador);
         solicitud1.setEstadoAportacion(estado);
         solicitud1.setSolicitudCredito(credito);
+        this.credito.setEstado(estado);
         solicitudFacade.guardar(solicitud1);
         //System.out.println(credito);
         //System.out.println(solicitud1);
